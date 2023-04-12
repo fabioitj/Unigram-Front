@@ -5,7 +5,7 @@ function Loading() {
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center"}}>
             <Image 
-                source={require("../../../assets/logo.png")}
+                source={require("../../../assets/logotipo.png")}
                 style={{ width: 250, height: 250 }}
             />
             <Svg xmlns="http://www.w3.org/2000/svg" width={75} height={75} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">

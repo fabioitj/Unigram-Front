@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
+import Button from "../../../../components/button";
+import GroupButton from "../../../../components/group_button";
+import SignIn from "../../../signin";
+import SignUp from "../../../signup";
 
 function WelcomeSlideIn() {
 
@@ -15,71 +19,57 @@ function WelcomeSlideIn() {
     }
 
     return (
-        <View style={styles.container}>
-            <Animatable.View duration={1000} animation="fadeInUp" style={styles.slideInRight} >
-                <Image
-                    source={require("../../../../../assets/particles-background.png")}
-                    style={styles.particles}
-                />
-            </Animatable.View>
-            <Animatable.View duration={2000} animation="fadeInUp" style={styles.slideInUpGirl}>
-                <Image
-                    source={require("../../../../../assets/menina-querida.png")}
-                    style={styles.girl}
-                />
-            </Animatable.View>
-            <Animatable.View duration={1000} animation="fadeInUp" style={styles.slideInUp}>
+        <>
+            <Image
+                source={require("../../../../../assets/logo.png")}
+                style={styles.logo}
+            />
+            <View style={styles.container}>
 
-                {
-                    pageRendering === 0 && (
-                        <>
-                            <Text style={[styles.title, styles.white_text]}>Bem vindo!</Text>
-                            <View style={styles.group_button}>
-                                <TouchableOpacity style={styles.button} onPress={handleSignInPress}>
-                                    <Text style={styles.white_text}>Entrar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={handleSignUpPress}>
-                                    <Text style={styles.white_text}>Registrar</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </>
-                    )
-                }
-                {
-                    pageRendering === 1 && (
-                        <>
-                            <Text style={[styles.title, styles.white_text]}>Entrar</Text>
-                            <View style={styles.group_button}>
-                                <TouchableOpacity style={styles.button} onPress={handleSignInPress}>
-                                    <Text style={styles.white_text}>Entrar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={handleSignUpPress}>
-                                    <Text style={styles.white_text}>Registrar</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </>
-                    )
-                }
-                {
-                    pageRendering === 2 && (
-                        <>
-                            <Text style={[styles.title, styles.white_text]}>Registrar</Text>
-                            <View style={styles.group_button}>
-                                <TouchableOpacity style={styles.button} onPress={handleSignInPress}>
-                                    <Text style={styles.white_text}>Entrar</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={handleSignUpPress}>
-                                    <Text style={styles.white_text}>Registrar</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </>
-                    )
-                }
+                <Animatable.View duration={1500} animation="fadeInUp" style={styles.slideInRight} >
+                    <Image
+                        source={require("../../../../../assets/particles-background.png")}
+                        style={styles.particles}
+                    />
+                </Animatable.View>
+                <Animatable.View duration={2000} animation="fadeInUp" style={styles.slideInUpGirl}>
+                    <Image
+                        source={require("../../../../../assets/menina-querida.png")}
+                        style={styles.girl}
+                    />
+                </Animatable.View>
+                <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles["pageNumber" + pageRendering], {paddingHorizontal: 32}]}>
 
-            </Animatable.View>
-        </View>
+                    {
+                        pageRendering === 0 && (
+                            <>
+                                <Text style={[styles.title, styles.white_text]}>Bem vindo!</Text>
+                                
+                                <GroupButton>
+                                    <Button onPress={handleSignInPress}>
+                                        Entrar
+                                    </Button>
+                                    <Button onPress={handleSignUpPress}>
+                                        Registrar
+                                    </Button>
+                                </GroupButton>
+                            </>
+                        )
+                    }
+                    {
+                        pageRendering === 1 && (
+                            <SignIn setPageRendering={setPageRendering}/>
+                        )
+                    }
+                    {
+                        pageRendering === 2 && (
+                            <SignUp  setPageRendering={setPageRendering}/>
+                        )
+                    }
 
-
+                </Animatable.View>
+            </View>
+        </>
     );
 }
 
@@ -89,9 +79,9 @@ const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: "flex-end",
+        position: 'relative',
     },
     slideInUp: {
-        height: '35%', // Set the height of the box to half of the screen
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -104,17 +94,26 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: "10px"
     },
+    pageNumber0: {
+        height: '35%',
+    },
+    pageNumber1: {
+        height: '75%',
+    },
+    pageNumber2: {
+        height: '35%',
+    },
     slideInUpGirl: {
         height: '100%', // Set the height of the box to half of the screen
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute', // Position the view absolutely
-        bottom: 40, // Set the bottom property to -1 to ensure the box is not visible until the animation begins
+        bottom: 100, // Set the bottom property to -1 to ensure the box is not visible until the animation begins
     },
     girl: {
         width: "100%",
-        height: "50%",
+        height: "60%",
     },
     slideInRight: {
         height: '100%', // Set the height of the box to half of the screen
@@ -130,38 +129,23 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "50%"
     },
+    logo: {
+        width: 50   ,
+        height: 58,
+        alignSelf: 'flex-start',
+        top: '1rem',
+        left: '1rem'
+    },
     title: {
+        alignSelf: 'flex-start',
         textAlign: "left",
-        width: "100%",
         paddingLeft: "2rem",
         fontSize: "2rem",
-        paddingTop: "2rem"
-    },
-    group_button: {
-        flex: 1,
-        flexDirection: "column",
-        gap: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-
-    },
-    button: {
-        borderRadius: "25px",
-        borderColor: "white",
-        borderWidth: "1px",
-        paddingVertical: "10px",
-        paddingHorizontal: "40px",
-        width: "60%",
-        height: "48px",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    white_text: {
+        paddingTop: "2rem",
         color: "white",
         fontWeight: "bold",
         fontFamily: "Arial",
     },
-})
+});
 
 export default WelcomeSlideIn;
