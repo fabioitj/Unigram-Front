@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect } from "react"
-import WelcomePage from './app/pages/welcome';
+import SlideInHome from './app/components/slide-in-home';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <WelcomePage/>
+      <SlideInHome/>
     </View>
   );
 }

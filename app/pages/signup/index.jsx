@@ -1,33 +1,46 @@
+import { useState } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { Image, Text } from "react-native";
 import { View } from "react-native-web";
+import Button from "../../components/button";
+import Field from "../../components/Field";
 
-function SignUp({setPage}) {
+function SignUp({backToWelcome}) {
+    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
+    const [birthDate, setBirthDate] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const handleOnSignIn = () => {
+
+    };
+
     return (
         <View style={{flex: 1, width:'100%', padding:24, flexDirection: 'column'}}>
             <View style={styles.header}>
-                <Image
-                    source={require("../../../assets/back_arrow.png")}
-                    style={styles.backButton}
-                    onPress={() => { setPage(page => page - 1)}}
-                />
-                <Text style={{width: '100%', fontSize: 24, fontWeight: 500, color: 'white', letterSpacing: 2, textAlign: 'center'}}>Entrar</Text>
+                <TouchableOpacity onPress={backToWelcome}>
+                    <Image
+                        source={require("../../../assets/back_arrow.png")}
+                        style={styles.backButton}
+                    />
+                </TouchableOpacity>
+                <Text style={{width: '100%', fontSize: 24, fontWeight: 500, color: 'white', letterSpacing: 2, textAlign: 'center'}}>Junte-se ao Unigram</Text>
                 <View style={{width:26}}></View>
             </View>
-            <View style={{width:'100%', gap: 64, marginTop: 36, paddingHorizontal: 32}}>
+            <View style={{width:'100%', marginTop: 36, paddingHorizontal: 32}}>
                 <View style={{flex: 1, width:'100%', gap: 16}}>
+                    <Field label="Nome" type="text" value={name} setValue={setName}/>
+                    <Field label="Nome de usuário" type="text" value={username} setValue={setUsername}/>
+                    <Field label="Data de nascimento" type="text" value={birthDate} setValue={setBirthDate}/>
                     <Field label="E-mail" type="text" value={email} setValue={setEmail}/>
-                    <Field label="Senha" type="password" value={senha} setValue={setSenha}/>
-                </View>
-
-                <View style={{flex: 1, width:'100%', gap: 16}}>
-                    <Button highlight onPress={handleOnSignIn}>
-                        Entrar
-                    </Button>
-                    <Text style={{textAlign: 'center', color: 'white', fontStyle: 'italic', fontWeight: 500, fontSize: 16}}>Esqueceu sua senha?</Text>
+                    <Field label="Senha" type="password" value={password} setValue={setPassword}/>
+                    <Field label="Confirmar senha" type="password" value={confirmPassword} setValue={setConfirmPassword}/>
                 </View>
             </View>
-            <View style={{flex: 1, gap: 16, width: '70%', alignSelf: 'center', marginTop: 128}}>
-                <Text style={{textAlign: 'center', color: 'white', fontWeight: 500, fontSize: 16}}>Ainda não é um membro?</Text>
-                <Button onPress={handleOnSignIn}>
+            <View style={{flex: 1, gap: 16, width: '100%', paddingHorizontal: 32, marginTop: 16, alignSelf: 'center'}}>
+                <Button onPress={handleOnSignIn} highlight>
                     Registrar
                 </Button>
             </View>
@@ -35,5 +48,18 @@ function SignUp({setPage}) {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 16,
+        width: '100%',
+    },
+    backButton: {
+        width: 26,
+        height: 26,
+    }
+})
 
 export default SignUp;

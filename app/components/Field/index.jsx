@@ -12,7 +12,7 @@ function Field({label, type, value, setValue}) {
                     <Text htmlFor={label + "__label"} style={styles.label}>{label}</Text>
                 )
             }
-            <TextInput style={styles.input} type={type} value={value} onChange={(e) => { setValue(e.target.value)}}/>
+            <TextInput style={styles.input} secureTextEntry={type === "password"} value={value} onChange={(e) => { setValue(e.target.value)}}/>
         </View>
     );
 }

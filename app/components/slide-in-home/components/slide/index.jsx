@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import * as Animatable from "react-native-animatable";
-import Button from "../../../../components/button";
-import GroupButton from "../../../../components/group_button";
-import SignIn from "../../../signin";
-import SignUp from "../../../signup";
+import Welcome from "../../../../pages/welcome";
+import SignIn from "../../../../pages/signin";
+import SignUp from "../../../../pages/signup";
 
-function WelcomeSlideIn() {
+function HomeSlideIn() {
 
     const [pageRendering, setPageRendering] = useState(0);
 
@@ -16,6 +15,11 @@ function WelcomeSlideIn() {
 
     const handleSignUpPress = () => {
         setPageRendering(2);
+    }
+
+    const backToWelcome = () => {
+        console.log("oi");
+        setPageRendering(0);
     }
 
     return (
@@ -38,36 +42,35 @@ function WelcomeSlideIn() {
                         style={styles.girl}
                     />
                 </Animatable.View>
-                <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles["pageNumber" + pageRendering], {paddingHorizontal: 32}]}>
-
-                    {
-                        pageRendering === 0 && (
-                            <>
-                                <Text style={[styles.title, styles.white_text]}>Bem vindo!</Text>
-                                
-                                <GroupButton>
-                                    <Button onPress={handleSignInPress}>
-                                        Entrar
-                                    </Button>
-                                    <Button onPress={handleSignUpPress}>
-                                        Registrar
-                                    </Button>
-                                </GroupButton>
-                            </>
-                        )
-                    }
-                    {
-                        pageRendering === 1 && (
-                            <SignIn setPageRendering={setPageRendering}/>
-                        )
-                    }
-                    {
-                        pageRendering === 2 && (
-                            <SignUp  setPageRendering={setPageRendering}/>
-                        )
-                    }
-
-                </Animatable.View>
+                {
+                    pageRendering !== 0 && (
+                        <Animatable.View duration={1000} animation="fadeInDown" style={{ position: 'absolute', width: '100%', height: '100%', bottom: 400, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                        </Animatable.View>
+                    )
+                }
+                {
+                    pageRendering === 0 && (
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber0, {paddingHorizontal: 32}]}>
+                            <Welcome handleSignInPress={handleSignInPress} handleSignUpPress={handleSignUpPress}/>
+                        </Animatable.View>
+                    )
+                }
+                {
+                    pageRendering === 1 && (
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber1, {paddingHorizontal: 32}]}>
+                            <SignIn backToWelcome={backToWelcome}/>
+                        </Animatable.View>
+                        
+                    )
+                }
+                {
+                    pageRendering === 2 && (
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber2, {paddingHorizontal: 32}]}>
+                            <SignUp backToWelcome={backToWelcome}/>
+                        </Animatable.View>
+                        
+                    )
+                }
             </View>
         </>
     );
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
         justifyContent: "flex-end",
-        position: 'relative',
     },
     slideInUp: {
         width: '100%',
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
         height: '75%',
     },
     pageNumber2: {
-        height: '35%',
+        height: '75%',
     },
     slideInUpGirl: {
         height: '100%', // Set the height of the box to half of the screen
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute', // Position the view absolutely
-        bottom: 100, // Set the bottom property to -1 to ensure the box is not visible until the animation begins
+        bottom: 20, // Set the bottom property to -1 to ensure the box is not visible until the animation begins
     },
     girl: {
         width: "100%",
@@ -136,16 +138,13 @@ const styles = StyleSheet.create({
         top: '1rem',
         left: '1rem'
     },
-    title: {
-        alignSelf: 'flex-start',
-        textAlign: "left",
-        paddingLeft: "2rem",
-        fontSize: "2rem",
-        paddingTop: "2rem",
-        color: "white",
-        fontWeight: "bold",
-        fontFamily: "Arial",
-    },
+    fadeInUpBackground: {
+        position: 'absolute',
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: "rgba(0, 0, 0, 0.5)"
+    }
 });
 
-export default WelcomeSlideIn;
+export default HomeSlideIn;

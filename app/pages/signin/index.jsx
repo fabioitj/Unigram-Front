@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { Image, Text } from "react-native";
 import { View } from "react-native-web";
 import Button from "../../components/button";
 import Field from "../../components/Field";
 
-function SignIn({ setPageRendering }) {
+function SignIn({ backToWelcome }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -16,11 +16,12 @@ function SignIn({ setPageRendering }) {
     return (
         <View style={{flex: 1, width:'100%', padding:24, flexDirection: 'column'}}>
             <View style={styles.header}>
-                <Image
-                    source={require("../../../assets/back_arrow.png")}
-                    style={styles.backButton}
-                    onPress={() => setPageRendering(0)}
-                />
+                <TouchableOpacity onPress={backToWelcome}>
+                    <Image
+                        source={require("../../../assets/back_arrow.png")}
+                        style={styles.backButton}
+                    />
+                </TouchableOpacity>
                 <Text style={{width: '100%', fontSize: 24, fontWeight: 500, color: 'white', letterSpacing: 2, textAlign: 'center'}}>Entrar</Text>
                 <View style={{width:26}}></View>
             </View>
