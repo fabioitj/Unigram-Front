@@ -8,10 +8,10 @@ function Welcome({handleSignInPress, handleSignUpPress}) {
             <Text style={[styles.title, styles.white_text]}>Bem vindo!</Text>
             
             <GroupButton>
-                <Button onPress={handleSignInPress}>
+                <Button onPress={handleSignInPress} style={styles.button}>
                     Entrar
                 </Button>
-                <Button onPress={handleSignUpPress}>
+                <Button onPress={handleSignUpPress} style={styles.button}>
                     Registrar
                 </Button>
             </GroupButton>
@@ -23,13 +23,16 @@ const styles = StyleSheet.create({
     title: {
         alignSelf: 'flex-start',
         textAlign: "left",
-        paddingLeft: "2rem",
         fontSize: "2rem",
         paddingTop: "2rem",
         color: "white",
         fontWeight: "bold",
         fontFamily: "Arial",
     },
+    button: {
+        width: '250px',
+        textAlign: 'center',
+    }
 });
 
 export default Welcome;
