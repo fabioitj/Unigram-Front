@@ -1,19 +1,28 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, Touchable, TouchableOpacity, View } from "react-native";
+import { IoHomeOutline, IoSearchOutline, IoAddOutline, IoPersonOutline } from "react-icons/io5"
 
 const Menu = () => {
     return (
         <View style={styles.Menu}>
             <View style={styles.MenuButtom}>
-                H
+                <TouchableOpacity>
+                <IoHomeOutline style={styles.ButtonIcon} />
+                </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                B
+                <TouchableOpacity>
+                <IoSearchOutline style={styles.ButtonIcon} />
+                </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                A
+                <TouchableOpacity>
+                <IoAddOutline style={styles.ButtonIcon} />
+                </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                P
+                <TouchableOpacity>
+                <IoPersonOutline style={styles.ButtonIcon} />
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -25,7 +34,7 @@ const styles = StyleSheet.create({
         zIndex: 999,
         bottom: '0',
         width: '100%',
-        height: '3rem',
+        height: '4rem',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -37,8 +46,13 @@ const styles = StyleSheet.create({
     MenuButtom: {
         width: '32px',
         textAlign: 'center',
+        height: '32px',
     },
-
+    ButtonIcon: {
+        color:"#fff", 
+        width: '100%', 
+        height: '100%'
+    }
 })
 
 export default Menu;

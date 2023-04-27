@@ -1,18 +1,29 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Image } from "react-native"
+import { IoMdNotificationsOutline } from "react-icons/io"
+import { IoChatbubblesOutline } from "react-icons/io5"
+import { TouchableOpacity } from "react-native-web"
 
-const Header = () => {
+const HeaderFeed = ({navigation}) => {
     return (
         <View style={styles.Header}>
             <View style={styles.HeaderButtom}>
-                Logo
+            <Image
+                source={require("../../../assets/logo.png")}
+                style={styles.logo}
+            />
             </View>
             <View style={styles.HeaderButtomGroup}
             >
+                
             <View style={styles.HeaderButtom}>
-                N
+                <TouchableOpacity onPress={()=>{navigation.navigate("Notifications")}}>
+                <IoMdNotificationsOutline style={{color: "#fff", height: '100%', width: '100%'}}/>
+                </TouchableOpacity>
             </View>
             <View style={styles.HeaderButtom}>
-                C
+                <TouchableOpacity onPress={()=>{navigation.navigate("Messages")}}>
+                <IoChatbubblesOutline style={{color: "#fff", height: '100%', width: '100%'}}/>
+                </TouchableOpacity>
             </View>
             </View>
         </View>
@@ -22,16 +33,16 @@ const Header = () => {
 const styles = StyleSheet.create({
     Header: {
         position: 'fixed',
+        alignItems:'center',
         zIndex: 999,
         top: '0',
         width: '100%',
-        height: '3rem',
+        height: '4rem',
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'row',
         fontWeight: "bold",
         fontFamily: "Arial",
-        paddingTop: '1rem',
         paddingHorizontal: '1rem',
         backgroundColor: 'linear-gradient(90deg, rgba(232,85,76,1) 0%, rgba(199,69,105,1) 100%)'
     },
@@ -44,7 +55,11 @@ const styles = StyleSheet.create({
         width: '32px',
         textAlign: 'center',
     },
+    logo: {
+        width:30,
+        height: 30,
+    },
 
 })
 
-export default Header;
+export default HeaderFeed;

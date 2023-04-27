@@ -1,18 +1,13 @@
-import { StyleSheet, View, ScrollView } from "react-native"
-import Header from "../../components/Header/HeaderFeed";
-import ImageCard from "../../components/ImageCard/ImageCard";
+import { StyleSheet, View, ScrollView, Text } from "react-native"
+import Header from "../../components/Header/HeaderMessages";
 import Menu from "../../components/Menu/Menu";
 
-const photosResponse = ['','','']
-
-const Feed = ({navigation}) => {  
+const Messages = ({navigation}) => {  
     return (
         <View style={styles.Container} >
             <Header navigation={navigation}/>
             <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Feed}>
-                {
-                    photosResponse.map(photo=><ImageCard />)
-                }
+                <Text>OI</Text>
             </ScrollView>
             <Menu />
         </View>
@@ -39,4 +34,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Feed;
+export default Messages;
