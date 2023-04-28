@@ -8,7 +8,7 @@ import Loading from "../Loading";
 import HomeSlideIn from "./components/slide";
 
 
-function SlideInHome() {
+function SlideInHome({navigation}) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -19,14 +19,23 @@ function SlideInHome() {
 
 
     return (
-        <View style={styles.welcome_page} className="welcome-page">
-            {
-                isLoading ? (
-                    <Loading/>
-                ) : (
-                    <HomeSlideIn/>
-                )
-            }
+        <View style={{
+            flex: 1,
+            backgroundColor: '#fff',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: "hidden"
+          }}
+          >
+            <View style={styles.welcome_page} className="welcome-page">
+                {
+                    isLoading ? (
+                        <Loading/>
+                    ) : (
+                        <HomeSlideIn navigation={navigation}/>
+                    )
+                }
+            </View>
         </View>
     );
 }

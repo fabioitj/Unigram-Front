@@ -4,8 +4,9 @@ import * as Animatable from "react-native-animatable";
 import Welcome from "../../../../pages/welcome";
 import SignIn from "../../../../pages/signin";
 import SignUp from "../../../../pages/signup";
+import ForgotPassword from "../../../../pages/forgot-password";
 
-function HomeSlideIn() {
+function HomeSlideIn({navigation}) {
 
     const [pageRendering, setPageRendering] = useState(0);
 
@@ -17,8 +18,11 @@ function HomeSlideIn() {
         setPageRendering(2);
     }
 
+    const handleForgotPasswordPress = () => {
+        setPageRendering(3);
+    }
+
     const backToWelcome = () => {
-        console.log("oi");
         setPageRendering(0);
     }
 
@@ -58,7 +62,7 @@ function HomeSlideIn() {
                 {
                     pageRendering === 1 && (
                         <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber1, {paddingHorizontal: 32}]}>
-                            <SignIn backToWelcome={backToWelcome}/>
+                            <SignIn backToWelcome={backToWelcome} goToForgotPassword={handleForgotPasswordPress} navigation={navigation}/>
                         </Animatable.View>
                         
                     )
@@ -67,6 +71,14 @@ function HomeSlideIn() {
                     pageRendering === 2 && (
                         <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber2, {paddingHorizontal: 32}]}>
                             <SignUp backToWelcome={backToWelcome}/>
+                        </Animatable.View>
+                        
+                    )
+                }
+                {
+                    pageRendering === 3 && (
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber3, {paddingHorizontal: 32}]}>
+                            <ForgotPassword backToWelcome={backToWelcome}/>
                         </Animatable.View>
                         
                     )
@@ -104,6 +116,9 @@ const styles = StyleSheet.create({
     },
     pageNumber2: {
         height: '75%',
+    },
+    pageNumber3: {
+        height: '75%'
     },
     slideInUpGirl: {
         height: '100%', // Set the height of the box to half of the screen
