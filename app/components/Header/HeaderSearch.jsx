@@ -1,8 +1,7 @@
-import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native"
+import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native"
 import { IoArrowBackOutline } from "react-icons/io5"
 
-const HeaderNotifications = ({navigation}) => {
-
+const HeaderSearch = ({navigation}) => {
 
     return (
         <View style={styles.Header}>
@@ -11,7 +10,9 @@ const HeaderNotifications = ({navigation}) => {
                 <IoArrowBackOutline style={{color:"#fff", width: '100%', height: '100%'}}/>
                 </TouchableOpacity>
             </View>
-            <Text style={{color:"#fff", fontWeight:600, fontSize:18}}>Notificações</Text>
+            <View style={{backgroundColor:"#fff", borderRadius:'25px', width:'60%', height:'60%'}}>
+                <TextInput placeholder="Buscar" style={styles.Search}/>
+            </View>
             <View style={styles.HeaderButtom}>
                 <Image
                     source={require("../../../assets/logo_branca.png")}
@@ -47,7 +48,13 @@ const styles = StyleSheet.create({
         width:30,
         height:37.88,
     },
+    Search: {
+        height:'100%',
+        paddingLeft:'15px',
+        fontWeight:'600',
+        color:'rgba(232,85,76,1) 100%'
+    }
 
 })
 
-export default HeaderNotifications;
+export default HeaderSearch;

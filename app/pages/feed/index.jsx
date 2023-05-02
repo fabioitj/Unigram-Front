@@ -14,7 +14,7 @@ const Feed = ({navigation}) => {
                     photosResponse.map(photo=><ImageCard />)
                 }
             </ScrollView>
-            <Menu />
+            <Menu navigation={navigation} />
         </View>
     )
 }

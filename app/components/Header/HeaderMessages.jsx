@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
+import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native"
 import { IoArrowBackOutline } from "react-icons/io5"
 
 const HeaderMessages = ({navigation}) => {
@@ -11,10 +11,10 @@ const HeaderMessages = ({navigation}) => {
                 <IoArrowBackOutline style={{color:"#fff", width: '100%', height: '100%'}}/>
                 </TouchableOpacity>
             </View>
-
+            <Text style={{color:"#fff", fontWeight:600, fontSize:18}}>Mensagens</Text>
             <View style={styles.HeaderButtom}>
                 <Image
-                    source={require("../../../assets/logo.png")}
+                    source={require("../../../assets/logo_branca.png")}
                     style={styles.logo}
                 />
             </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         width:30,
-        height: 30,
+        height:37.88,
     },
 
 })

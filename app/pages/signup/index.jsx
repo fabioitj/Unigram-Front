@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
-import { Image, Text } from "react-native";
-import { View } from "react-native-web";
+import { StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import Button from "../../components/button";
 import Field from "../../components/Field";
 
@@ -18,7 +16,7 @@ function SignUp({ backToWelcome }) {
     };
 
     return (
-        <View style={{ flex: 1, width: '100%', padding: 24, flexDirection: 'column' }}>
+        <ScrollView style={{ flex: 1, width: '100%', padding: 24, flexDirection: 'column' }}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={backToWelcome}>
                     <Image
@@ -48,7 +46,7 @@ function SignUp({ backToWelcome }) {
                 </Button>
             </View>
 
-        </View>
+        </ScrollView>
     );
 }
 

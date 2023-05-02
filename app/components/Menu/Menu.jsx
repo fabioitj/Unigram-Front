@@ -1,16 +1,16 @@
-import { StyleSheet, Touchable, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { IoHomeOutline, IoSearchOutline, IoAddOutline, IoPersonOutline } from "react-icons/io5"
 
-const Menu = () => {
+const Menu = ({navigation}) => {
     return (
         <View style={styles.Menu}>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
                 <IoHomeOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
                 <IoSearchOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
@@ -20,7 +20,7 @@ const Menu = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
                 <IoPersonOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>

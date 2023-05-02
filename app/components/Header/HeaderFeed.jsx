@@ -1,14 +1,13 @@
-import { StyleSheet, View, Image } from "react-native"
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
 import { IoMdNotificationsOutline } from "react-icons/io"
 import { IoChatbubblesOutline } from "react-icons/io5"
-import { TouchableOpacity } from "react-native-web"
 
 const HeaderFeed = ({navigation}) => {
     return (
         <View style={styles.Header}>
             <View style={styles.HeaderButtom}>
             <Image
-                source={require("../../../assets/logo.png")}
+                source={require("../../../assets/logo_branca.png")}
                 style={styles.logo}
             />
             </View>
@@ -57,9 +56,8 @@ const styles = StyleSheet.create({
     },
     logo: {
         width:30,
-        height: 30,
-    },
-
+        height:37.88,
+    }
 })
 
 export default HeaderFeed;
