@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Messages">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={SlideInHome} 
