@@ -24,7 +24,9 @@ const ImageCard = () => {
             </ImageBackground>
             <View style={styles.ImageCardDescription}>
                 <Text style={styles.ImageCardDescriptionText}>Um exemplo de texto.</Text>
+                <TouchableOpacity>
                 <Text style={styles.ImageCardDescriptionTextExpand}>ver mais</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )

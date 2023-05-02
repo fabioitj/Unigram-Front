@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput, Text, TouchableOpacity } from "react-native"
+import { StyleSheet, View, TextInput, Text, TouchableOpacity, Image } from "react-native"
 import Header from "../../components/Header/HeaderEditProfile";
 import Menu from "../../components/Menu/Menu";
 import ExitButton from "../../components/Buttons/ExitButton";
@@ -8,6 +8,21 @@ const EditProfile = ({navigation}) => {
     return (
         <View style={styles.Container} >
             <Header navigation={navigation}/>
+            <Image
+                source={"https://images.pexels.com/photos/15031717/pexels-photo-15031717.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 "}
+                style={{
+                    width: '7rem',
+                    height: '7rem',
+                    position: 'absolute',
+                    top: '5rem',
+                    left: '50%',
+                    zIndex: 1,
+                    borderRadius: 100,
+                    transform: 'translateX(-50%)',
+                    borderColor: 'hsl(332, 28%, 30%)',
+                    borderWidth: '5px'
+                }}
+            />
             <View contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Infos}>
                 <View style={{alignItems:'center'}}>
                     <TouchableOpacity style={{backgroundColor:"#fff", borderRadius:15, width:'150px', height:'40px', justifyContent:'center'}}>
@@ -33,7 +48,7 @@ const EditProfile = ({navigation}) => {
                     </View>
                 </View>
                 <View style={{flexDirection:'row', justifyContent:'space-between', marginTop:'48px'}}>
-                    <ExitButton /> <SaveButton />
+                    <ExitButton navigation={navigation} /> <SaveButton navigation={navigation}/>
                 </View>
             </View>
             <Menu navigation={navigation} />
@@ -50,6 +65,7 @@ const styles = StyleSheet.create({
         flex:1
     },
     Infos: {
+        paddingTop: '4rem',
         marginTop: '9rem',
         minHeight: '100%',
         width: '100%',

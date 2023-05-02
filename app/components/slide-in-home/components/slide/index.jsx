@@ -5,8 +5,9 @@ import Welcome from "../../../../pages/welcome";
 import SignIn from "../../../../pages/signin";
 import SignUp from "../../../../pages/signup";
 import ForgotPassword from "../../../../pages/forgot-password";
+import { LinearGradient } from "expo-linear-gradient";
 
-function HomeSlideIn({navigation}) {
+function HomeSlideIn({ navigation }) {
 
     const [pageRendering, setPageRendering] = useState(0);
 
@@ -48,39 +49,49 @@ function HomeSlideIn({navigation}) {
                 </Animatable.View>
                 {
                     pageRendering !== 0 && (
-                        <Animatable.View duration={1000} animation="fadeInDown" style={{ position: 'absolute', width: '100%', height: '100%', bottom: 400, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                        <Animatable.View duration={1000} animation="fadeInDown" style={{ position: 'absolute', width: '100%', height: '100%', bottom: 400, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                         </Animatable.View>
                     )
                 }
                 {
                     pageRendering === 0 && (
-                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber0, {paddingHorizontal: 32}]}>
-                            <Welcome handleSignInPress={handleSignInPress} handleSignUpPress={handleSignUpPress}/>
+
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.pageNumber0]}>
+                            <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={[styles.slideInUp, { paddingHorizontal: 32 }]}>
+                                <Welcome handleSignInPress={handleSignInPress} handleSignUpPress={handleSignUpPress} />
+                            </LinearGradient>
                         </Animatable.View>
+
                     )
                 }
                 {
                     pageRendering === 1 && (
-                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber1, {paddingHorizontal: 32}]}>
-                            <SignIn backToWelcome={backToWelcome} goToForgotPassword={handleForgotPasswordPress} navigation={navigation}/>
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.pageNumber1]}>
+                            <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={[styles.slideInUp, { paddingHorizontal: 32 }]}>
+                                <SignIn backToWelcome={backToWelcome} goToForgotPassword={handleForgotPasswordPress} goToSignUp={handleSignUpPress} navigation={navigation} />
+                            </LinearGradient>
                         </Animatable.View>
-                        
+
                     )
                 }
                 {
                     pageRendering === 2 && (
-                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber2, {paddingHorizontal: 32}]}>
-                            <SignUp backToWelcome={backToWelcome}/>
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.pageNumber2]}>
+                            <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={[styles.slideInUp, { paddingHorizontal: 32 }]}>
+                                <SignUp backToWelcome={backToWelcome} goToSignIn={handleSignInPress}/>
+                            </LinearGradient>
                         </Animatable.View>
-                        
+
                     )
                 }
                 {
                     pageRendering === 3 && (
-                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber3, {paddingHorizontal: 32}]}>
-                            <ForgotPassword backToWelcome={backToWelcome}/>
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.pageNumber3]}>
+                            <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={[styles.slideInUp, { paddingHorizontal: 32 }]}>
+                                <ForgotPassword backToWelcome={backToWelcome} />
+                            </LinearGradient>
                         </Animatable.View>
-                        
+
                     )
                 }
             </View>
@@ -96,6 +107,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     slideInUp: {
+        height: '100%',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
@@ -110,15 +122,19 @@ const styles = StyleSheet.create({
     },
     pageNumber0: {
         height: '35%',
+        width: '100%'
     },
     pageNumber1: {
         height: '75%',
+        width: '100%'
     },
     pageNumber2: {
         height: '75%',
+        width: '100%'
     },
     pageNumber3: {
-        height: '75%'
+        height: '75%',
+        width: '100%'
     },
     slideInUpGirl: {
         height: '100%', // Set the height of the box to half of the screen
@@ -147,7 +163,7 @@ const styles = StyleSheet.create({
         height: "50%"
     },
     logo: {
-        width: 50   ,
+        width: 50,
         height: 58,
         alignSelf: 'flex-start',
         top: '1rem',

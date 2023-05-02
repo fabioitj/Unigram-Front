@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import GroupButton from "../../components/group_button";
 import Button from "../../components/button";
 

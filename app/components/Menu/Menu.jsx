@@ -1,9 +1,10 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { IoHomeOutline, IoSearchOutline, IoAddOutline, IoPersonOutline } from "react-icons/io5"
+import { LinearGradient } from "expo-linear-gradient";
 
 const Menu = ({navigation}) => {
     return (
-        <View style={styles.Menu}>
+        <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.Menu}>
             <View style={styles.MenuButtom}>
                 <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
                 <IoHomeOutline style={styles.ButtonIcon} />
@@ -15,7 +16,7 @@ const Menu = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("NewPost")}>
                 <IoAddOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
@@ -24,7 +25,7 @@ const Menu = ({navigation}) => {
                 <IoPersonOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
-        </View>
+        </LinearGradient>
     )
 }
 

@@ -32,7 +32,7 @@ function ForgotPassword({ backToWelcome }) {
                     </Text>
                 </View>
                 <View style={{ flex: 1, width: '100%', gap: 16 }}>
-                    <Field label="E-mail" type="text" value={email} setValue={setEmail} />
+                    <Field label="E-mail" type="text" value={email} setValue={setEmail}/>
                 </View>
             </View>
             <View style={{ gap: 16, width: "77.5%", alignSelf: 'center', flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end' }}>

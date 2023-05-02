@@ -1,10 +1,11 @@
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
 import { IoMdNotificationsOutline } from "react-icons/io"
 import { IoChatbubblesOutline } from "react-icons/io5"
+import { LinearGradient } from "expo-linear-gradient"
 
 const HeaderFeed = ({navigation}) => {
     return (
-        <View style={styles.Header}>
+        <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.Header}>
             <View style={styles.HeaderButtom}>
             <Image
                 source={require("../../../assets/logo_branca.png")}
@@ -25,7 +26,7 @@ const HeaderFeed = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             </View>
-        </View>
+        </LinearGradient>
         )
 }
 

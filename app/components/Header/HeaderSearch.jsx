@@ -1,10 +1,11 @@
 import { StyleSheet, View, Image, TouchableOpacity, Text, TextInput } from "react-native"
 import { IoArrowBackOutline } from "react-icons/io5"
+import { LinearGradient } from "expo-linear-gradient"
 
 const HeaderSearch = ({navigation}) => {
 
     return (
-        <View style={styles.Header}>
+        <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.Header}>
              <View style={styles.HeaderButtom}>
                 <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
                 <IoArrowBackOutline style={{color:"#fff", width: '100%', height: '100%'}}/>
@@ -19,7 +20,7 @@ const HeaderSearch = ({navigation}) => {
                     style={styles.logo}
                 />
             </View>
-        </View>
+        </LinearGradient>
         )
 
 }

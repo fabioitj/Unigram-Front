@@ -1,11 +1,14 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SaveButton = ({navigation}) => {
     return(
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Feed")}>
+        <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
             <Text style={{color:"#fff", alignSelf:'center', fontWeight:'500', fontSize:'18px'}}>Salvar</Text>
         </TouchableOpacity>
+        </LinearGradient>
 
     )
 }

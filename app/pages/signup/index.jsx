@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "rea
 import Button from "../../components/button";
 import Field from "../../components/Field";
 
-function SignUp({ backToWelcome }) {
+function SignUp({ backToWelcome, goToSignIn }) {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [birthDate, setBirthDate] = useState("");
@@ -41,7 +41,7 @@ function SignUp({ backToWelcome }) {
                 </View>
             </View>
             <View style={{ flex: 1, gap: 16, width: '100%', paddingHorizontal: 32, marginTop: 16, alignSelf: 'center' }}>
-                <Button onPress={handleOnSignIn} highlight>
+                <Button onPress={goToSignIn} highlight> 
                     Registrar
                 </Button>
             </View>

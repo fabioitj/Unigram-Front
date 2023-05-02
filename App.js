@@ -8,6 +8,7 @@ import Notifications from './app/pages/notifications';
 import Search from './app/pages/search';
 import Profile from './app/pages/profile/my-profile';
 import EditProfile from './app/pages/profile/edit';
+import NewPost from './app/pages/new-post';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,16 +16,14 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          component={SlideInHome} 
-        />
+        <Stack.Screen name="Login" component={SlideInHome} />
         <Stack.Screen name="Feed" component={Feed} />
         <Stack.Screen name="Messages" component={Messages} />
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="NewPost" component={NewPost} />
       </Stack.Navigator>
     </NavigationContainer>
   );

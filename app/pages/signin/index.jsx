@@ -5,7 +5,7 @@ import { View } from "react-native-web";
 import Button from "../../components/button";
 import Field from "../../components/Field";
 
-function SignIn({ backToWelcome, goToForgotPassword, navigation }) {
+function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
@@ -42,7 +42,7 @@ function SignIn({ backToWelcome, goToForgotPassword, navigation }) {
             </View>
             <View style={{ flex: 1, gap: 16, width: '70%', alignSelf: 'center', marginTop: 128 }}>
                 <Text style={{ textAlign: 'center', color: 'white', fontWeight: 500, fontSize: 16 }}>Ainda não é um membro?</Text>
-                <Button onPress={handleOnSignIn}>
+                <Button onPress={goToSignUp}>
                     Registrar
                 </Button>
             </View>

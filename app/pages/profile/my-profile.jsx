@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView, Text, Image } from "react-native"
+import { StyleSheet, View, ScrollView, Text, Image, TouchableOpacity } from "react-native"
 import Header from "../../components/Header/HeaderMyProfile";
 import  ImageCardProfile from "../../components/ImageCard/ImageCardProfile";
 import Menu from "../../components/Menu/Menu";
@@ -15,7 +15,7 @@ const Profile = ({navigation}) => {
                     width: '7rem',
                     height: '7rem',
                     position: 'absolute',
-                    top: '3rem',
+                    top: '5rem',
                     left: '50%',
                     zIndex: 1,
                     borderRadius: 100,
@@ -25,7 +25,9 @@ const Profile = ({navigation}) => {
                 }}
             />
             <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Feed}>
+                <TouchableOpacity>
                 <Text style={{fontWeight:400, color: "#fff", textAlign:'center', fontSize:14}}>48 conexões</Text>
+                </TouchableOpacity>
                 <Text style={{fontWeight:600, color: "#fff", textAlign:'center', fontSize:14, lineHeight:15}}>Aqui vai a sua biografia.{'\n'}Escreva algumas informações{'\n'}sobre você!</Text>
                 {
                     photosResponse.map(photo=><ImageCardProfile />)
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
         flex:1
     },
     Feed: {
+        paddingTop: '4rem',
         marginTop: '9rem',
         minHeight: '100%',
         width: '100%',
