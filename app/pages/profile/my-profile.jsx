@@ -10,7 +10,7 @@ const Profile = ({navigation}) => {
         <View style={styles.Container} >
             <Header navigation={navigation}/>
             <Image
-                source={"https://images.pexels.com/photos/16130027/pexels-photo-16130027.jpeg"}
+                source={"https://images.pexels.com/photos/15031717/pexels-photo-15031717.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 "}
                 style={{
                     width: '7rem',
                     height: '7rem',
