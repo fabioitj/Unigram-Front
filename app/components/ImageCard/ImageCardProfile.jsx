@@ -1,16 +1,20 @@
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react-native"
 import { IoChatbubbleOutline, IoHeartOutline } from "react-icons/io5"
+import { useContext } from "react"
+import { AuthContext } from "../../contexts/auth"
 
-const ImageCard = () => {
+const ImageCard = ({imageUrl, publish_date, description}) => {
+    const { user } = useContext(AuthContext); 
+
     return (
         <View style={styles.ImageCardLayout}>
             <ImageBackground
                 style={styles.ImageCardImage}
-                source={'https://images.pexels.com/photos/3647317/pexels-photo-3647317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}>
+                source={imageUrl}>
                 <View style={styles.ImageCardInfo}>
                     <View style={styles.ImageCardInfoText}>
-                        <Text style={styles.ImageCardInfoOwner}>@garota_bonita</Text>
-                        <Text style={styles.ImageCardInfoTimeAgo}> há 2 semanas</Text>
+                        <Text style={styles.ImageCardInfoOwner}>@{user.username}</Text>
+                        <Text style={styles.ImageCardInfoTimeAgo}> {publish_date}</Text>
                     </View>
                     <View style={styles.ImageCardInfoButtons}>
                         <TouchableOpacity style={styles.ImageCardInfoButtom}>
@@ -23,7 +27,7 @@ const ImageCard = () => {
                 </View>
             </ImageBackground>
             <View style={styles.ImageCardDescription}>
-                <Text style={styles.ImageCardDescriptionText}>Eu casei!</Text>
+                <Text style={styles.ImageCardDescriptionText}>{description}</Text>
                 <TouchableOpacity>
                 <Text style={styles.ImageCardDescriptionTextExpand}>ver mais</Text>
                 </TouchableOpacity>

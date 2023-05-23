@@ -2,10 +2,24 @@ import { StyleSheet, View, ScrollView, Text, Image, TouchableOpacity } from "rea
 import Header from "../../components/Header/HeaderMyProfile";
 import  ImageCardProfile from "../../components/ImageCard/ImageCardProfile";
 import Menu from "../../components/Menu/Menu";
-
-const photosResponse = ['','','']
+import { useContext, useEffect, useState } from "react";import { getPublicationsByUser } from "../../api/userApi";
+import { AuthContext } from "../../contexts/auth";
 
 const Profile = ({navigation}) => {  
+    const [publications, setPublications] = useState([]);
+
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        getPublicationsByUser(user._id)
+            .then((response) => {
+                setPublications(response.data);
+            })
+            .catch((response) => {
+                alert(response.response.data.message);
+            })
+    }, []);
+
     return (
         <View style={styles.Container} >
             <Header navigation={navigation}/>
@@ -30,7 +44,7 @@ const Profile = ({navigation}) => {
                 </TouchableOpacity>
                 <Text style={{fontWeight:600, color: "#fff", textAlign:'center', fontSize:14, lineHeight:15}}>Aqui vai a sua biografia.{'\n'}Escreva algumas informações{'\n'}sobre você!</Text>
                 {
-                    photosResponse.map(photo=><ImageCardProfile />)
+                    publications.map((p, i) => <ImageCardProfile description={p.description} imageUrl={p.image} publish_date={p.publication_date} key={i} />)
                 }
                 
             </ScrollView>

@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Image, Text } from "react-native";
 import { View } from "react-native-web";
 import Button from "../../components/button";
 import Field from "../../components/Field";
+import { AuthContext } from "../../contexts/auth";
 
 function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
+    const [password, setPassword] = useState("");
+
+    const { signIn } = useContext(AuthContext);
 
     const handleOnSignIn = () => {
-        navigation.navigate('Feed');
+        signIn(email, password, navigation); 
     };
 
     return (
@@ -28,7 +31,7 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
             <View style={{ width: '100%', gap: 64, marginTop: 36, paddingHorizontal: 32 }}>
                 <View style={{ flex: 1, width: '100%', gap: 16 }}>
                     <Field label="E-mail" type="text" value={email} setValue={setEmail} />
-                    <Field label="Senha" type="password" value={senha} setValue={setSenha} />
+                    <Field label="Senha" type="password" value={password} setValue={setPassword} />
                 </View>
 
                 <View style={{ flex: 1, width: '100%', gap: 16 }}>

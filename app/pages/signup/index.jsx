@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import Button from "../../components/button";
 import Field from "../../components/Field";
+import { AuthContext } from "../../contexts/auth";
 
 function SignUp({ backToWelcome, goToSignIn }) {
     const [name, setName] = useState("");
@@ -11,9 +12,20 @@ function SignUp({ backToWelcome, goToSignIn }) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleOnSignIn = () => {
+    const { signUp } = useContext(AuthContext);
 
-    };
+    const handleOnSignIn = () => {
+        const newUser = {
+            name,
+            username,
+            email,
+            birth_date: birthDate,
+            password,
+            confirm_password: confirmPassword
+        };
+
+        signUp(newUser, backToWelcome);
+    };  
 
     return (
         <ScrollView style={{ flex: 1, width: '100%', padding: 24, flexDirection: 'column' }}>
@@ -41,7 +53,7 @@ function SignUp({ backToWelcome, goToSignIn }) {
                 </View>
             </View>
             <View style={{ flex: 1, gap: 16, width: '100%', paddingHorizontal: 32, marginTop: 16, alignSelf: 'center' }}>
-                <Button onPress={goToSignIn} highlight> 
+                <Button onPress={handleOnSignIn} highlight> 
                     Registrar
                 </Button>
             </View>

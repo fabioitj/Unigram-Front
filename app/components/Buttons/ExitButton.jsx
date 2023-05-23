@@ -1,13 +1,21 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { AuthContext } from "../../contexts/auth";
+import { useContext } from "react";
 
 const ExitButton = ({navigation}) => {
-    return(
+    const { signOut } = useContext(AuthContext); 
 
+    const handleOnLogout = () => {
+        signOut();
+        navigation.navigate("Login")
+    }
+
+    return(
         <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.button}>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={{color:"#fff", alignSelf:'center', fontWeight:'500', fontSize:'18px'}}>Sair</Text>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={handleOnLogout}>
+                <Text style={{color:"#fff", alignSelf:'center', fontWeight:'500', fontSize:'18px'}}>Sair</Text>
+            </TouchableOpacity>
         </LinearGradient>
 
     )
