@@ -10,9 +10,33 @@ function SignUp({ backToWelcome, goToSignIn }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
-    const handleOnSignIn = () => {
-
+    const handleOnSignUp = () => {
+        setIsLoading(true);
+        SignUp(name, username, email, birthDate, password)
+            .then(res => {
+                switch (res.status) {
+                    case 200:
+                        goToSignIn();
+                        break;
+                    default:
+                        throw new Error(res.data);
+                }
+            })
+            .catch(err => {
+                setIsError(true);
+                if ( err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Erro desconhecido");
+                }
+            })
+            .finally(()=> {
+                setIsLoading(false);
+            })
     };
 
     return (
@@ -29,6 +53,17 @@ function SignUp({ backToWelcome, goToSignIn }) {
             </View>
             <View style={{ width: '100%', marginTop: 36, paddingHorizontal: 32 }}>
                 <View style={{ flex: 1, width: '100%', gap: 16 }}>
+                    { isError && 
+                        <Text style={{
+                            width: '100%',
+                            fontSize: 24,
+                            fontWeight: 500,
+                            color: 'red', 
+                            textAlign: 'center'
+                        }}>
+                            {error}
+                        </Text>
+                    }
                     <Field label="Nome" type="text" value={name} setValue={setName} />
                     <Field label="Nome de usuário" type="text" value={username} setValue={setUsername} />
                     <Field label="Data de nascimento" type="text" value={birthDate} setValue={setBirthDate} />
@@ -41,8 +76,8 @@ function SignUp({ backToWelcome, goToSignIn }) {
                 </View>
             </View>
             <View style={{ flex: 1, gap: 16, width: '100%', paddingHorizontal: 32, marginTop: 16, alignSelf: 'center' }}>
-                <Button onPress={goToSignIn} highlight> 
-                    Registrar
+                <Button onPress={handleOnSignUp} highlight> 
+                    { isLoading ? 'Registrando...' : 'Registrar' }
                 </Button>
             </View>
 
