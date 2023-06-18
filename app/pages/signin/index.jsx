@@ -6,11 +6,29 @@ import Button from "../../components/button";
 import Field from "../../components/Field";
 
 function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
+    const { signIn } = useAuth()
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+
 
     const handleOnSignIn = () => {
-        navigation.navigate('Feed');
+        setIsLoading(true);
+        setIsError(false);
+        signIn(email, senha)
+            .catch(err => {
+                setIsError(true);
+                if ( err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Erro desconhecido");
+                }
+            })
+            .finally(()=> {
+                setIsLoading(false);
+            })
     };
 
     return (
@@ -27,13 +45,26 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
             </View>
             <View style={{ width: '100%', gap: 64, marginTop: 36, paddingHorizontal: 32 }}>
                 <View style={{ flex: 1, width: '100%', gap: 16 }}>
+                    {
+                        isError &&
+                        <Text
+                            style={{
+                                textAlign: 'center',
+                                color: 'red',
+                                fontWeight: 500,
+                                fontSize: 16
+                            }}
+                        >
+                            {error}
+                        </Text>
+                    }
                     <Field label="E-mail" type="text" value={email} setValue={setEmail} />
                     <Field label="Senha" type="password" value={senha} setValue={setSenha} />
                 </View>
 
                 <View style={{ flex: 1, width: '100%', gap: 16 }}>
                     <Button highlight onPress={handleOnSignIn}>
-                        Entrar
+                        { isLoading ? 'Entrando...': 'Entrar' }
                     </Button>
                     <TouchableOpacity onPress={goToForgotPassword}>
                         <Text style={{ textAlign: 'center', color: 'white', fontStyle: 'italic', fontWeight: 500, fontSize: 16 }}>Esqueceu sua senha?</Text>
