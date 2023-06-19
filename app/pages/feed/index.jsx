@@ -2,16 +2,53 @@ import { StyleSheet, View, ScrollView } from "react-native"
 import Header from "../../components/Header/HeaderFeed";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import Menu from "../../components/Menu/Menu";
+import { useEffect, useState } from "react";
+import api from "../../api";
+import { useAuth } from "../../contexts/auth";
 
-const photosResponse = ['','','']
+const Feed = ({navigation}) => {
+    const { signOut } = useAuth()
+    const [posts, setPosts] = useState([]);
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
-const Feed = ({navigation}) => {  
+    useEffect(() => {
+        setIsLoading(true);
+        api.feed()
+            .then(res => {
+                switch (res.status) {
+                    case 401:
+                        signOut();
+                    case 200:
+                        setPosts(res.data);
+                        break;
+                    default:
+                        throw new Error(res.data);
+                }
+            })
+            .catch(err => {
+                setIsError(true);
+                if ( err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Ocorreu um erro ao carregar o feed.");
+                }
+            })
+            .finally(()=> {
+                setIsLoading(false);
+            })
+    }, []);
+
+
     return (
         <View style={styles.Container} >
             <Header navigation={navigation}/>
             <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Feed}>
                 {
-                    photosResponse.map(photo=><ImageCard />)
+                    isLoading ? <Text>Carregando...</Text> :
+                    isError ? <Text>{error}</Text> :
+                    posts && posts.map(post=><ImageCard post={post}/>)
                 }
             </ScrollView>
             <Menu navigation={navigation} />
