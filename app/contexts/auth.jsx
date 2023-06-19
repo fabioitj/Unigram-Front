@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import api from "../api";
 
 const AuthContext = createContext();
 
@@ -12,7 +13,7 @@ const AuthProvider = ({children}) => {
     });
 
     const signIn = async (username, password) => {
-        SignIn(username, password)
+        api.login(username, password)
             .then(res => {
                 switch (res.status) {
                     case 401:
@@ -22,7 +23,6 @@ const AuthProvider = ({children}) => {
                         sessionStorage.setItem('@unigram-session-token', token);
                         setLogged(true);
                         setToken(token)
-                        navigation.navigate('Feed');
                         break;
                     default:
                         throw new Error(res.data);
