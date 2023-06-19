@@ -1,18 +1,19 @@
 import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 
-const SearchList = ({navigation}) => {
+//TODO: ADD PROFILE SCREEN
+const SearchList = ({navigation, user}) => {
     return (
-        <View>
-        <TouchableOpacity style={styles.notifInfo}>
-            <Image
-                source={"https://images.pexels.com/photos/16267173/pexels-photo-16267173.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
-                style={styles.profile}
-            />
-            <View style={{justifyContent:'center'}}>
-                <Text style={{color:"#fff", fontWeight:650, height:20}}>@menina_conceitual</Text> 
-                <Text style={{color:"#fff", fontWeight:400, height:20}}>Menina Conceitual Oliveira</Text>
-            </View>
-        </TouchableOpacity>
+        <View onPress={()=>navigation.navigate("Profile")}>
+            <TouchableOpacity style={styles.notifInfo}>
+                <Image
+                    source={"https://images.pexels.com/photos/16267173/pexels-photo-16267173.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
+                    style={styles.profile}
+                />
+                <View style={{justifyContent:'center'}}>
+                    <Text style={{color:"#fff", fontWeight:650, height:20}}>@{user.username}</Text> 
+                    <Text style={{color:"#fff", fontWeight:400, height:20}}>{user.name}</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     )
 }
