@@ -20,7 +20,7 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
           <Stack.Screen name="Login" component={SlideInHome} />
-          <ProtectedPage>
+          {/* <ProtectedPage> */}
             <Stack.Screen name="Feed" component={Feed} />
             <Stack.Screen name="Messages" component={Messages} />
             <Stack.Screen name="Notifications" component={Notifications} />
@@ -28,7 +28,7 @@ function App() {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="NewPost" component={NewPost} />
-          </ProtectedPage>
+          {/* </ProtectedPage> */}
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
