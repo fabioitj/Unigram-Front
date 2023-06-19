@@ -1,5 +1,5 @@
-import { useAuth } from '../context/auth';
-import SlideInHome from './app/components/slide-in-home';
+import { useAuth } from '../contexts/auth';
+import SlideInHome from '../components/slide-in-home';
 
 const ProtectedPage = ({children}) => {
     const { loggedIn } = useAuth();
