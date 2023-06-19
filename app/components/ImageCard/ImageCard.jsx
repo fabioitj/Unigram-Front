@@ -1,16 +1,37 @@
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react-native"
 import { IoChatbubbleOutline, IoHeartOutline } from "react-icons/io5"
 
-const ImageCard = () => {
+function getTimeElapsedLabel(date) {
+    const now = new Date();
+    const elapsed = now - date;
+  
+    const seconds = Math.floor(elapsed / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+  
+    if (seconds < 60) {
+      return `Há ${seconds} segundos atrás`;
+    } else if (minutes < 60) {
+      return `Há ${minutes} minutos atrás`;
+    } else if (hours < 24) {
+      return `Há ${hours} horas atrás`;
+    } else {
+      return `Há ${days} dias atrás`;
+    }
+}
+  
+// TODO: ADD COMMENTS SCREEN
+const ImageCard = ({post}) => {
     return (
         <View style={styles.ImageCardLayout}>
             <ImageBackground
                 style={styles.ImageCardImage}
-                source={'https://images.pexels.com/photos/2853198/pexels-photo-2853198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=10'}>
+                source={post.image}>
                 <View style={styles.ImageCardInfo}>
                     <View style={styles.ImageCardInfoText}>
-                        <Text style={styles.ImageCardInfoOwner}>@GarotaGata</Text>
-                        <Text style={styles.ImageCardInfoTimeAgo}> há 30 min atrás</Text>
+                        <Text style={styles.ImageCardInfoOwner}>@{post.id_user.username}</Text>
+                        <Text style={styles.ImageCardInfoTimeAgo}>{getTimeElapsedLabel(new Date(post.publication_date))}</Text>
                     </View>
                     <View style={styles.ImageCardInfoButtons}>
                         <TouchableOpacity style={styles.ImageCardInfoButtom}>
@@ -23,9 +44,9 @@ const ImageCard = () => {
                 </View>
             </ImageBackground>
             <View style={styles.ImageCardDescription}>
-                <Text style={styles.ImageCardDescriptionText}>Um exemplo de texto.</Text>
+                <Text style={styles.ImageCardDescriptionText}>{post.description}</Text>
                 <TouchableOpacity>
-                <Text style={styles.ImageCardDescriptionTextExpand}>ver mais</Text>
+                    <Text style={styles.ImageCardDescriptionTextExpand}>ver mais</Text>
                 </TouchableOpacity>
             </View>
         </View>
