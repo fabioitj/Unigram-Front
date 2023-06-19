@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import Button from "../../components/button";
 import Field from "../../components/Field";
+import api from "../../api";
 
 function SignUp({ backToWelcome, goToSignIn }) {
     const [name, setName] = useState("");
@@ -16,7 +17,7 @@ function SignUp({ backToWelcome, goToSignIn }) {
 
     const handleOnSignUp = () => {
         setIsLoading(true);
-        SignUp(name, username, email, birthDate, password)
+        api.register(name, username, email, birthDate, password)
             .then(res => {
                 switch (res.status) {
                     case 200:
