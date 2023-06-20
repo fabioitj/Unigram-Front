@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const domain = 'http://localhost:3000';
+const domain = 'http://localhost:3001';
 
 const defaultHeader = () => ({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': localStorage.getItem('token')
+    'Authorization': 'Bearer '+ sessionStorage.getItem('@unigram-session-token')
 });
 
 const api = {
@@ -14,44 +14,61 @@ const api = {
             email: email,
             password: password
         }),
-    register: (name,username,email,birth_date,password) =>
-        axios.post(domain + '/user', {
+    register: (name, username, password, confirmPassword, email, birth_date) => {
+        console.log("API");
+        return axios.post(domain + '/user', {
             name: name,
             username: username,
             email: email,
             birth_date: birth_date,
-            password: password
-        }),
-    feed: () => 
-        axios.get(domain + '/publication/feed/', defaultHeader),
+            password: password,
+            confirm_password: confirmPassword
+        })
+    },
+    feed: () => {
+        return axios.get(domain + '/publication/feed', {headers: defaultHeader()})},
+    like: (id) =>
+        axios.put(domain + '/publication/like/'+id, {}, {headers: defaultHeader()}),
+    unlike: (id) =>
+        axios.put(domain + '/publication/unlike/'+id, {}, {headers: defaultHeader()}),
     findUser: (username) =>
-        axios.get(domain + '/user/search', { search: username }, defaultHeader),
+        axios.get(domain + '/user/search/'+username, {headers: defaultHeader()}),
     findIdUser: (id) =>
-        axios.get(domain + '/user/' + id, defaultHeader),
+        axios.get(domain + '/user/' + id, {headers: defaultHeader()}),
     getMessages: () =>
-        axios.get(domain + '/messages', defaultHeader),
+        axios.get(domain + '/messages', {headers: defaultHeader()}),
     getChatMessages: () =>
-            axios.get(domain + '/messages', defaultHeader),
+            axios.get(domain + '/messages', {headers: defaultHeader()}),
     sendMessage: (message) =>
-        axios.post(domain + '/message', { body: message }, defaultHeader),
+        axios.post(domain + '/message', { body: message }, {headers: defaultHeader()}),
     getUserPosts: (id) =>
-        axios.get(domain + '/publication/user/' + id, defaultHeader),
+        axios.get(domain + '/publication/user/' + id, {headers: defaultHeader()}),
     getPost: (id) =>
-        axios.get(domain + '/publication/' + id, defaultHeader),
+        axios.get(domain + '/publication/' + id, {headers: defaultHeader()}),
+    connect: (id) =>
+        axios.post(domain + '/connection/request', {id_user_requested: id}, {headers: defaultHeader()}),
+    disconnect: (id) =>
+        axios.delete(domain + '/connection/' + id, {headers: defaultHeader()}),
+    block: (id) =>
+        axios.put(domain + '/connection/block', {id_connection: id}, {headers: defaultHeader()}),
+    acceptConnection: (id) =>
+        axios.put(domain + '/connection/accept', {id_connection: id}, {headers: defaultHeader()}),
+    rejectConnection: (id) =>
+        axios.put(domain + '/connection/reject', {id_connection: id}, {headers: defaultHeader()}),
     createPost: (image, description) =>
-        axios.post(domain + '/publication', {image: image, description: description}, defaultHeader),
+        axios.post(domain + '/publication', {image: image, description: description}, {headers: defaultHeader()}),
     editPost: (id, description) =>
-        axios.put(domain + '/publication/' + id, {description: description}, defaultHeader),
+        axios.put(domain + '/publication/' + id, {description: description}, {headers: defaultHeader()}),
     deletePost: (id) =>
-        axios.delete(domain + '/publication/' + id, defaultHeader),
+        axios.delete(domain + '/publication/' + id, {headers: defaultHeader()}),
     getComments: (id) =>
-        axios.get(domain + '/comment/' + id, defaultHeader),
+        axios.get(domain + '/comment/' + id, {headers: defaultHeader()}),
     createComment: (id, comment) =>
-        axios.post(domain + '/comment', {description: comment, publication: id}, defaultHeader),
+        axios.post(domain + '/comment', {description: comment, id_publication: id}, {headers: defaultHeader()}),
     editComment: (id, comment) =>
-        axios.put(domain + '/comment/' + id, {description: comment}, defaultHeader),
+        axios.put(domain + '/comment/' + id, {description: comment}, {headers: defaultHeader()}),
     deleteComment: (id) =>
-        axios.delete(domain + '/comment/' + id, defaultHeader),
+        axios.delete(domain + '/comment/' + id, {headers: defaultHeader()}),
 };
 
 export default api;
