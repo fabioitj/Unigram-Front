@@ -11,6 +11,7 @@ import EditProfile from './app/pages/profile/edit';
 import NewPost from './app/pages/new-post';
 import { AuthProvider } from './app/contexts/auth';
 import ProtectedPage from './app/pages/ProtectedPage';
+import Post from './app/pages/post/post';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ function App() {
             <Stack.Screen name="Notifications" component={Notifications} />
             <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Post" component={Post} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="NewPost" component={NewPost} />
           {/* </ProtectedPage> */}
