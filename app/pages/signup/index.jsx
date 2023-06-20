@@ -17,7 +17,7 @@ function SignUp({ backToWelcome, goToSignIn }) {
 
     const handleOnSignUp = () => {
         setIsLoading(true);
-        api.register(name, username, email, birthDate, password)
+        api.register(name, username, password, confirmPassword, email, birthDate)
             .then(res => {
                 switch (res.status) {
                     case 200:

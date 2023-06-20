@@ -1,5 +1,6 @@
-import { StyleSheet, View, ScrollView, TextInput } from "react-native";
+import { StyleSheet, View, ScrollView, TextInput, Button } from "react-native";
 import Header from '../../components/Header/HeaderNewPost';
+import Field from "../../components/Field";
 import Menu from "../../components/Menu/Menu";
 import { useState } from "react";
 import api from "../../api";
@@ -43,19 +44,21 @@ const NewPost = ({navigation}) => {
     return(
         <View style={styles.Container}>
             <Header navigation={navigation}/>
-            <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Notifications}>
-                <TextInput
+            <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem', marginTop: '4rem'}} style={styles.Notifications}>
+                <Field
+                    label="Link da imagem"
                     placeholder="Link da imagem"
                     value={imageLink}
-                    onChangeText={text => setImageLink(text)}
+                    setValue={setImageLink}
                 />
-                <TextInput
+                <Field
+                    label="Descrição da imagem"
                     placeholder="Descrição da imagem"
                     value={description}
-                    onChangeText={text => setDescription(text)}
+                    setValue={setDescription}
                 />
                 {isError ? <Text>{error}</Text> :
-                    <Button title={isLoading?"Enviando":"Enviar"} onPress={handlePress} />
+                    <Button title={isLoading?"Enviando":"Enviar"} onPress={handlePress} contentContainerStyle={{ borderRadius: '1rem' }}/>
                 }
             </ScrollView>            
             <Menu navigation={navigation} />

@@ -1,10 +1,10 @@
-import { StyleSheet, View, ScrollView } from "react-native"
+import { StyleSheet, View, ScrollView, Text } from "react-native"
 import Header from "../../components/Header/HeaderFeed";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import Menu from "../../components/Menu/Menu";
 import { useEffect, useState } from "react";
-import api from "../../api";
 import { useAuth } from "../../contexts/auth";
+import api from "../../api";
 
 const Feed = ({navigation}) => {
     const { signOut } = useAuth()
@@ -46,9 +46,9 @@ const Feed = ({navigation}) => {
             <Header navigation={navigation}/>
             <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Feed}>
                 {
-                    isLoading ? <Text>Carregando...</Text> :
-                    isError ? <Text>{error}</Text> :
-                    posts && posts.map(post=><ImageCard post={post}/>)
+                    isLoading ? <Text style={styles.TextMessage}>Carregando...</Text> :
+                    isError ? <Text style={styles.TextMessage}>{error}</Text> :
+                    posts && posts.length > 0 ? posts.map(post=><ImageCard post={post}/>) : <Text style={styles.TextMessage}>Nenhum post encontrado.</Text>
                 }
             </ScrollView>
             <Menu navigation={navigation} />
@@ -57,6 +57,14 @@ const Feed = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
+    TextMessage: {
+        width: '100%',
+        height: '50vH',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#fff',
+    },
     Container: {
         width: '100%',
         height: '100%',

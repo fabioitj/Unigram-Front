@@ -4,6 +4,7 @@ import { Image, Text } from "react-native";
 import { View } from "react-native-web";
 import Button from "../../components/button";
 import Field from "../../components/Field";
+import { useAuth } from "../../contexts/auth";
 
 function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
     const { signIn } = useAuth()

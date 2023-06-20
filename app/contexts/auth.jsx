@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import api from "../api";
 
 const AuthContext = createContext();
@@ -21,7 +21,7 @@ const AuthProvider = ({children}) => {
                     case 200:
                         const { token } = res.data;
                         sessionStorage.setItem('@unigram-session-token', token);
-                        setLogged(true);
+                        logIn(true);
                         setToken(token)
                         break;
                     default:
@@ -32,7 +32,7 @@ const AuthProvider = ({children}) => {
 
      const signOut = async () => {
          sessionStorage.removeItem('@unigram-session-token');
-         setLogged(false);
+         logIn(false);
          setToken(undefined);
      }
 

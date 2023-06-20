@@ -2,7 +2,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native"
 import { IoArrowBackOutline, IoSettingsOutline } from "react-icons/io5"
 import { LinearGradient } from "expo-linear-gradient"
 
-const HeaderMyProfile = ({navigation}) => {
+const HeaderMyProfile = ({navigation, user}) => {
 
 
     return (
@@ -13,7 +13,7 @@ const HeaderMyProfile = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             <View>
-                <Text style={{color:"#fff", fontWeight:600, fontSize:18, paddingTop:'15px'}}>@garota_bonita</Text>
+                <Text style={{color:"#fff", fontWeight:600, fontSize:18, paddingTop:'15px'}}>@{user.username}</Text>
             </View>
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>

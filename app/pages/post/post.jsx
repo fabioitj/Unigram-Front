@@ -1,5 +1,8 @@
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react-native"
-import { IoChatbubbleOutline, IoHeartOutline, IoHeart } from "react-icons/io5"
+import { StyleSheet, View, ScrollView, Text, ImageBackground, TouchableOpacity, TextInput } from "react-native"
+import { IoChatbubbleOutline, IoHeartOutline, IoHeart, IoArrowRedoOutline } from "react-icons/io5"
+import Header from "../../components/Header/HeaderFeed";
+import ImageCard from "../../components/ImageCard/ImageCard";
+import Menu from "../../components/Menu/Menu";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import api from "../../api";
@@ -23,23 +26,72 @@ function getTimeElapsedLabel(date) {
       return `Há ${days} dias atrás`;
     }
 }
-  
-// TODO: ADD COMMENTS SCREEN
-const ImageCard = ({navigation, post}) => {
+
+const Post = ({navigation, route}) => {
     const { signOut } = useAuth()
+    const [post, setPost] = useState();
+    const [comments, setComments] = useState([]);
+    const [updates, setUpdate] = useState([]);
     const [error, setError] = useState("");
+    const [comment, setComment] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
-    const handleLike = () => {
+    useEffect(() => {
         setIsLoading(true);
-        post.already_liked ? api.unlike(post._id) : api.like(post._id)
+        const { post } = route.params;
+        Promise.allSettled([
+            api.getComments(post)
+                .then(res => {
+                    switch (res.status) {
+                        case 401:
+                            signOut();
+                        case 200:
+                            setComments(res.data);
+                            break;
+                        default:
+                            throw new Error(res.data);
+                    }
+                }),
+            api.getPost(post)
+                .then(res => {
+                    switch (res.status) {
+                        case 401:
+                            signOut();
+                        case 200:
+                            setPost(res.data);
+                            console.log(res.data);
+                            break;
+                        default:
+                            throw new Error(res.data);
+                    }
+                })
+        ])
+            .catch(err => {
+                setIsError(true);
+                if ( err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Ocorreu um erro ao carregar o feed.");
+                }
+            })
+            .finally(()=> {
+                setIsLoading(false);
+            })
+    }, [update]);
+
+    const update = () => {
+        setUpdate(updates => [...updates, '']);
+    }
+
+    const handleComment = () => {
+        api.createComment(post._id, comment)
             .then(res => {
                 switch (res.status) {
                     case 401:
                         signOut();
                     case 200:
-                        post.already_liked = !post.already_liked;
+                        update();
                         break;
                     default:
                         throw new Error(res.data);
@@ -53,16 +105,15 @@ const ImageCard = ({navigation, post}) => {
                     setError("Ocorreu um erro ao carregar o feed.");
                 }
             })
-            .finally(()=> {
-                setIsLoading(false);
-            })
-        };
-
-    const handleComment = () => {
-        navigation.navigate("Post", {post: post._id});
     }
+
+
     return (
-        <View style={styles.ImageCardLayout}>
+        <View style={styles.Container} >
+        { isLoading ? <Text>Carregando...</Text> : isError ? <Text>{error}</Text> : post && (
+        <>
+            <Header navigation={navigation}/>
+            <ScrollView contentContainerStyle={{ marginBottom: '4rem', marginTop: '1rem'}} style={styles.Feed}>
             <ImageBackground
                 style={styles.ImageCardImage}
                 source={post.image}>
@@ -83,10 +134,18 @@ const ImageCard = ({navigation, post}) => {
             </ImageBackground>
             <View style={styles.ImageCardDescription}>
                 <Text style={styles.ImageCardDescriptionText}>{post.description}</Text>
-                <TouchableOpacity>
-                    <Text style={styles.ImageCardDescriptionTextExpand}>ver mais</Text>
-                </TouchableOpacity>
+                <View style={{width: '100%', height: '1.25rem', display: 'flex', flexDirection: 'row', gap: '.5rem'}}>
+                    <TextInput placeholder="Comentar" style={styles.Search} value={comment} onChange={(e)=>setComment(e.target.value)}/>
+                    <TouchableOpacity onPress={()=>handleComment()} style={{}}>
+                        <IoArrowRedoOutline />
+                    </TouchableOpacity>
+                </View>
+                { comments && comments.length > 0 && comments.map(comment => <Text style={styles.ImageCardDescriptionText}>{comment.description}</Text>)}
             </View>
+            </ScrollView>
+            <Menu navigation={navigation} />
+        </>
+        )}
         </View>
     )
 }
@@ -106,6 +165,14 @@ const styles = StyleSheet.create({
     },
     ImageCardImage: {
         height: '32rem'
+    },
+    Search: {
+        height:'100%',
+        paddingLeft:'15px',
+        fontWeight:'600',
+        color:'rgba(232,85,76,1) 100%',
+        width:'100%',
+        background: '#cbd5e1',
     },
     ImageCardInfo: {
         position: 'absolute',
@@ -148,18 +215,42 @@ const styles = StyleSheet.create({
     ImageCardDescription: {
         backgroundColor: '#fff',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         paddingHorizontal: '1rem',
         padding: '.5rem',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        alignItems: 'start'
     },
     ImageCardDescriptionText: {
-        fontSize: '1rem'
+        fontSize: '1rem',
+        borderBottom: 'solid 1px #000',
     },
     ImageCardDescriptionTextExpand: {
         fontWeight: 700
+    },
+    TextMessage: {
+        width: '100%',
+        height: '50vH',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#fff',
+    },
+    Container: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    Feed: {
+        marginTop: '3rem',
+        minHeight: '100%',
+        width: '100%',
+        backgroundColor: '#61364A',
+        display: 'flex',
+        flexDirection: 'column',
+        rowGap: '18px',
+        maringBottom: '24px'
     }
 });
 
-export default ImageCard;
+export default Post;

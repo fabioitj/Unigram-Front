@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from "react-native"
 import { IoChatbubbleOutline, IoHeartOutline } from "react-icons/io5"
 
-const ImageCard = () => {
+const ImageCard = ({navigation, post}) => {
     return (
         <View style={styles.ImageCardLayout}>
             <ImageBackground
                 style={styles.ImageCardImage}
-                source={'https://images.pexels.com/photos/3647317/pexels-photo-3647317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}>
+                source={post.image}>
                 <View style={styles.ImageCardInfo}>
                     <View style={styles.ImageCardInfoText}>
-                        <Text style={styles.ImageCardInfoOwner}>@garota_bonita</Text>
+                        <Text style={styles.ImageCardInfoOwner}>@{post.id_user.username}</Text>
                         <Text style={styles.ImageCardInfoTimeAgo}> há 2 semanas</Text>
                     </View>
                     <View style={styles.ImageCardInfoButtons}>
