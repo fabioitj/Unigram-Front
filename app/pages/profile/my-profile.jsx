@@ -24,12 +24,16 @@ const Profile = ({navigation, route}) => {
     }
 
     useEffect(async () => {
+        console.log(userParam);
+        console.log(route);
         setIsLoading(true);
         if ( !userParam ) {
             setIsMyself(true);
             userParam = (await api.getMyself());
-            
             userParam = userParam.data;
+        }
+        else{
+
         }
         Promise.allSettled([
             api.findIdUser(userParam._id)
@@ -69,7 +73,7 @@ const Profile = ({navigation, route}) => {
             .finally(()=> {
                 setIsLoading(false);
             })
-    }, [updates]);
+    }, [updates, route]);
 
     const handleConnect = () => {
         user.connection && user.connection.isConnected ? api.disconnect(user._id) : api.connect(user._id)
@@ -145,6 +149,7 @@ const Profile = ({navigation, route}) => {
                 />
                 <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Feed}>
                     <Text style={{fontWeight:400, color: "#fff", textAlign:'center', fontSize:14}}>{user.connections.length} conexões</Text>
+                    { !isMyself &&
                         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
                             <View style={{alignItems:'center'}}>
                                 <TouchableOpacity onPress={()=>handleConnect()} style={{backgroundColor:"#fff", borderRadius:15, width:'150px', height:'40px', justifyContent:'center'}}>
@@ -153,7 +158,7 @@ const Profile = ({navigation, route}) => {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                            {(user.connection && user.connection.isConnected) && (
+                            {(!isMyself && user.connection && user.connection.isConnected) && (
                                 <View style={{alignItems:'center'}}>
                                 <TouchableOpacity onPress={()=>handleBlock()} style={{backgroundColor:"#fff", borderRadius:15, width:'150px', height:'40px', justifyContent:'center'}}>
                                     <Text style={{alignSelf:'center', color:"rgba(232,85,76,1)", fontWeight:'600', fontSize:18}}>Bloquear</Text>
@@ -162,6 +167,7 @@ const Profile = ({navigation, route}) => {
                             )}
                             
                         </View>
+                    }
                     <View style={{alignItems:'center', top:'15px', gap: '2rem'}}>
                         {
                             isLoading ? <Text>Carregando...</Text> :
