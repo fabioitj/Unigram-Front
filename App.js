@@ -22,14 +22,14 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
           <Stack.Screen name="Login" component={SlideInHome} />
           {/* <ProtectedPage> */}
-            <Stack.Screen name="Feed" component={Feed} />
-            <Stack.Screen name="Messages" component={Messages} />
-            <Stack.Screen name="Notifications" component={Notifications} />
-            <Stack.Screen name="Search" component={Search} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="Post" component={Post} />
-            <Stack.Screen name="EditProfile" component={EditProfile} />
-            <Stack.Screen name="NewPost" component={NewPost} />
+          <Stack.Screen name="Feed" component={Feed} />
+          <Stack.Screen name="Messages" component={Messages} />
+          <Stack.Screen name="Notifications" component={Notifications} />
+          <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Post" component={Post} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen name="NewPost" component={NewPost} />
           {/* </ProtectedPage> */}
         </Stack.Navigator>
       </NavigationContainer>

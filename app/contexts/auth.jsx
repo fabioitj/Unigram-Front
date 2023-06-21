@@ -13,23 +13,21 @@ const AuthProvider = ({children, navigation}) => {
     });
 
     const signIn = async (username, password) => {
-        api.login(username, password)
+        return api.login(username, password)
             .then(res => {
+                console.log(res.status);
                 switch (res.status) {
-                    case 401:
-                        throw new Error("Usuário ou senha inválidos.");
                     case 200:
                         const { token } = res.data;
                         sessionStorage.setItem('@unigram-session-token', token);
                         logIn(true);
                         setToken(token)
-                        navigation.navigate('Feed')
                         break;
                     default:
                         throw new Error(res.data);
                 }
             })
-     }
+    }
 
      const signOut = async () => {
          sessionStorage.removeItem('@unigram-session-token');

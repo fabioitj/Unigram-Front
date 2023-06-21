@@ -11,17 +11,24 @@ const Profile = ({navigation, route}) => {
     const [user, setUser] = useState();
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState("");
+    const [isMyself, setIsMyself] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [updates, setupdates] = useState([]);
+
+    let userParam;
+    userParam = route?.params?.user;
 
     const update = () => {
         setupdates(updates => [...updates, '']);
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         setIsLoading(true);
-        const { user } = route.params;
+        if ( !userParam ) {
+            setIsMyself(true);
+            userParam = await api.getMyself();
+        }
         Promise.allSettled([
             api.findIdUser(user)
                 .then(res => {

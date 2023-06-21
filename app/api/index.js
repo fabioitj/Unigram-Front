@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const domain = 'http://localhost:3001';
+const domain = 'http://localhost:3000';
 
 const defaultHeader = () => ({
     'Content-Type': 'application/json',
@@ -25,6 +25,8 @@ const api = {
             confirm_password: confirmPassword
         })
     },
+    getMyself: () => 
+        axios.get(domain + '/user/me', {headers: defaultHeader()}),
     feed: () => {
         return axios.get(domain + '/publication/feed', {headers: defaultHeader()})},
     like: (id) =>

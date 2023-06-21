@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Image, Text } from "react-native";
 import { View } from "react-native-web";
@@ -19,18 +19,32 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
         setIsLoading(true);
         setIsError(false);
         signIn(email, senha)
+            .then(()=>navigation.navigate('Feed'))
             .catch(err => {
                 setIsError(true);
-                if ( err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError("Erro desconhecido");
+                console.log(err);
+                switch (err.code) {
+                    case "ERR_BAD_REQUEST":
+                        setError("Usuário ou senha inválidos.");
+                        break;
+                    default:
+                        setError("Erro desconhecido");
                 }
             })
             .finally(()=> {
+                console.log("finally");
                 setIsLoading(false);
             })
     };
+
+    useEffect(()=> {
+        const token = sessionStorage.getItem("@unigram-session-token");
+        console.log("TOKENNN");
+        console.log(token);
+        if (token) {
+            navigation.navigate("Feed");
+        }
+    })
 
     return (
         <View style={{ flex: 1, width: '100%', padding: 24, flexDirection: 'column' }}>
@@ -51,7 +65,7 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
                         <Text
                             style={{
                                 textAlign: 'center',
-                                color: 'red',
+                                color: 'white',
                                 fontWeight: 500,
                                 fontSize: 16
                             }}
