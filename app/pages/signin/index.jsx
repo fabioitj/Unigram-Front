@@ -37,15 +37,6 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
             })
     };
 
-    useEffect(()=> {
-        const token = sessionStorage.getItem("@unigram-session-token");
-        console.log("TOKENNN");
-        console.log(token);
-        if (token) {
-            navigation.navigate("Feed");
-        }
-    })
-
     return (
         <View style={{ flex: 1, width: '100%', padding: 24, flexDirection: 'column' }}>
             <View style={styles.header}>

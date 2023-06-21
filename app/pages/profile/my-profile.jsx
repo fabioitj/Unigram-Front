@@ -30,7 +30,7 @@ const Profile = ({navigation, route}) => {
             userParam = await api.getMyself();
         }
         Promise.allSettled([
-            api.findIdUser(user)
+            api.findIdUser(userParam)
                 .then(res => {
                     switch (res.status) {
                         case 401:
@@ -42,7 +42,7 @@ const Profile = ({navigation, route}) => {
                             throw new Error(res.data);
                     }
                 }),
-            api.getUserPosts(user)
+            api.getUserPosts(userParam)
                 .then(res => {
                     switch (res.status) {
                         case 401:

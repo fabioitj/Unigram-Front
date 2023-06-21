@@ -1,8 +1,10 @@
 import { StyleSheet, Text } from "react-native";
 import GroupButton from "../../components/group_button";
 import Button from "../../components/button";
+import { useEffect } from "react";
 
 function Welcome({handleSignInPress, handleSignUpPress}) {
+
     return (
         <>
             <Text style={[styles.title, styles.white_text]}>Bem vindo!</Text>
