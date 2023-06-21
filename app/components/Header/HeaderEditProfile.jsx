@@ -9,7 +9,7 @@ const HeaderEditProfile = ({ navigation }) => {
 
         <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.Header}>
             <View style={styles.HeaderButtom}>
-                <TouchableOpacity onPress={() => navigation.push("Profile")}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <IoArrowBackOutline style={{ color: "#fff", width: '100%', height: '100%' }} />
                 </TouchableOpacity>
             </View>
