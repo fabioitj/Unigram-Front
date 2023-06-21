@@ -27,10 +27,12 @@ const Profile = ({navigation, route}) => {
         setIsLoading(true);
         if ( !userParam ) {
             setIsMyself(true);
-            userParam = await api.getMyself();
+            userParam = (await api.getMyself());
+            
+            userParam = userParam.data;
         }
         Promise.allSettled([
-            api.findIdUser(userParam)
+            api.findIdUser(userParam._id)
                 .then(res => {
                     switch (res.status) {
                         case 401:
@@ -42,7 +44,7 @@ const Profile = ({navigation, route}) => {
                             throw new Error(res.data);
                     }
                 }),
-            api.getUserPosts(userParam)
+            api.getUserPosts(userParam._id)
                 .then(res => {
                     switch (res.status) {
                         case 401:
