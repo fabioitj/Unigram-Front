@@ -20,7 +20,7 @@ const NewPost = ({navigation}) => {
                     case 401:
                         signOut();
                     case 200:
-                        navigation.navigate('Feed');
+                        navigation.push('Feed');
                         break;
                     default:
                         throw new Error(res.data);

@@ -16,27 +16,23 @@ const Profile = ({navigation, route}) => {
     const [isError, setIsError] = useState(false);
     const [updates, setupdates] = useState([]);
 
-    let userParam;
-    userParam = route?.params?.user;
 
     const update = () => {
         setupdates(updates => [...updates, '']);
     }
 
     useEffect(async () => {
-        console.log(userParam);
-        console.log(route);
         setIsLoading(true);
-        if ( !userParam ) {
+        let userId;
+        userId = route?.params?.user;
+        if ( !userId ) {
+            console.log("Checking my own profile.")
             setIsMyself(true);
-            userParam = (await api.getMyself());
-            userParam = userParam.data;
-        }
-        else{
-
+            const userRequest = (await api.getMyself());
+            userId = userRequest.data._id;
         }
         Promise.allSettled([
-            api.findIdUser(userParam._id)
+            api.findIdUser(userId)
                 .then(res => {
                     switch (res.status) {
                         case 401:
@@ -48,7 +44,7 @@ const Profile = ({navigation, route}) => {
                             throw new Error(res.data);
                     }
                 }),
-            api.getUserPosts(userParam._id)
+            api.getUserPosts(userId)
                 .then(res => {
                     switch (res.status) {
                         case 401:

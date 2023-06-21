@@ -18,7 +18,7 @@ function SlideInHome({navigation}) {
         const token = sessionStorage.getItem("@unigram-session-token");
         console.log(token);
         if (token) {
-            navigation.navigate("Feed");
+            navigation.push("Feed");
         }
     }, []);
 

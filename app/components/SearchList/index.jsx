@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 const SearchList = ({navigation, user}) => {
 
     const handlePress = () => {
-        navigation.navigate("Profile", {user: user._id});
+        navigation.push("Profile", {user: user._id});
     }
 
     return (

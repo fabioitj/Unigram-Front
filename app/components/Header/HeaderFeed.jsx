@@ -16,12 +16,12 @@ const HeaderFeed = ({navigation}) => {
             >
                 
             <View style={styles.HeaderButtom}>
-                <TouchableOpacity onPress={()=>{navigation.navigate("Notifications")}}>
+                <TouchableOpacity onPress={()=>{navigation.push("Notifications")}}>
                 <IoMdNotificationsOutline style={{color: "#fff", height: '100%', width: '100%'}}/>
                 </TouchableOpacity>
             </View>
             <View style={styles.HeaderButtom}>
-                <TouchableOpacity onPress={()=>{navigation.navigate("Messages")}}>
+                <TouchableOpacity onPress={()=>{navigation.push("Messages")}}>
                 <IoChatbubblesOutline style={{color: "#fff", height: '100%', width: '100%'}}/>
                 </TouchableOpacity>
             </View>

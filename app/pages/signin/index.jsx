@@ -19,7 +19,7 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
         setIsLoading(true);
         setIsError(false);
         signIn(email, senha)
-            .then(()=>navigation.navigate('Feed'))
+            .then(()=>navigation.push('Feed'))
             .catch(err => {
                 setIsError(true);
                 console.log(err);

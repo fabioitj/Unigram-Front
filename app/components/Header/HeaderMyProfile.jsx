@@ -8,7 +8,7 @@ const HeaderMyProfile = ({navigation, user}) => {
     return (
         <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.Header}>
             <View style={styles.HeaderButtom}>
-                <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
+                <TouchableOpacity onPress={() => navigation.push("Feed")}>
                     <IoArrowBackOutline style={{color:"#fff", width: '100%', height: '100%'}}/>
                 </TouchableOpacity>
             </View>
@@ -16,7 +16,7 @@ const HeaderMyProfile = ({navigation, user}) => {
                 <Text style={{color:"#fff", fontWeight:600, fontSize:18, paddingTop:'15px'}}>@{user.username}</Text>
             </View>
             <View>
-                <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+                <TouchableOpacity onPress={() => navigation.push("EditProfile")}>
                     <IoSettingsOutline style={{color:"#fff", width:'25', height:'25', paddingTop:'15px'}}/>
                 </TouchableOpacity>
             </View>

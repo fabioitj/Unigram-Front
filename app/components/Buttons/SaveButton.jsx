@@ -5,7 +5,7 @@ const SaveButton = ({navigation}) => {
     return(
 
         <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.button}>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+        <TouchableOpacity onPress={() => navigation.push("Profile")}>
             <Text style={{color:"#fff", alignSelf:'center', fontWeight:'500', fontSize:'18px'}}>Salvar</Text>
         </TouchableOpacity>
         </LinearGradient>

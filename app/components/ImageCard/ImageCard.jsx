@@ -59,7 +59,7 @@ const ImageCard = ({navigation, post}) => {
         };
 
     const handleComment = () => {
-        navigation.navigate("Post", {post: post._id});
+        navigation.push("Post", {post: post._id});
     }
     return (
         <View style={styles.ImageCardLayout}>

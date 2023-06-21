@@ -6,22 +6,22 @@ const Menu = ({navigation}) => {
     return (
         <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.Menu}>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
+                <TouchableOpacity onPress={() => navigation.push("Feed")}>
                 <IoHomeOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+                <TouchableOpacity onPress={() => navigation.push("Search")}>
                 <IoSearchOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity onPress={() => navigation.navigate("NewPost")}>
+                <TouchableOpacity onPress={() => navigation.push("NewPost")}>
                 <IoAddOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
             <View style={styles.MenuButtom}>
-                <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+                <TouchableOpacity onPress={() => navigation.push("Profile")}>
                 <IoPersonOutline style={styles.ButtonIcon} />
                 </TouchableOpacity>
             </View>
