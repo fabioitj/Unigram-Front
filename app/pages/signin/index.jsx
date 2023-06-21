@@ -19,7 +19,6 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
         setIsLoading(true);
         setIsError(false);
         signIn(email, senha)
-            .then(()=>navigation.navigate('Feed'))
             .catch(err => {
                 setIsError(true);
                 if ( err instanceof Error) {

@@ -3,7 +3,7 @@ import api from "../api";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({children, navigation}) => {
     const [token, setToken] =  useState(()=>{
         const oldToken = sessionStorage.getItem('@unigram-session-token');
         return oldToken || undefined;
@@ -23,6 +23,7 @@ const AuthProvider = ({children}) => {
                         sessionStorage.setItem('@unigram-session-token', token);
                         logIn(true);
                         setToken(token)
+                        navigation.navigate('Feed')
                         break;
                     default:
                         throw new Error(res.data);
