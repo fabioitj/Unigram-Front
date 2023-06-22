@@ -22,6 +22,10 @@ const NotificationList = ({navigation, notification}) => {
         }
     }
 
+    const handleAccept = () => {
+        api
+    }
+
     return (
         <View>
         <TouchableOpacity style={styles.notifInfo}>
@@ -30,10 +34,16 @@ const NotificationList = ({navigation, notification}) => {
                 style={styles.profile}
             />
             <View style={{justifyContent:'center'}}>
-            <View style={{flexDirection:'row', justifyContent:'flex-start', gap:'95px'}}>
                 <Text style={{color:"#fff", fontWeight:650, height:20}}>@{notification.id_user_requester.username}</Text> 
+                <Text style={{color:"#fff", fontWeight:400, height:20}}>pediu para se conectar</Text>
             </View>  
-            <Text style={{color:"#fff", fontWeight:400, height:20}}>pediu para se conectar</Text>
+            <View style={{justifyContent:"flex-end", display: "flex", flexDirection: 'row', gap: '16px'}}>
+                <TouchableOpacity style={{horizontalPadding: '16px', verticalPadding: '8px'}}>
+                    Aceitar
+                </TouchableOpacity>
+                <TouchableOpacity style={{horizontalPadding: '16px', verticalPadding: '8px'}}>
+                    Reijeitar
+                </TouchableOpacity>
             </View>
         </TouchableOpacity>
         </View>
