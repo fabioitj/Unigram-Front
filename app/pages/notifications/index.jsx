@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Text } from "react-native";
 import api from "../../api";
 import Header from '../../components/Header/HeaderNotifications';
 import Menu from "../../components/Menu/Menu";
@@ -38,10 +38,15 @@ const Notifications = ({navigation}) => {
         <Header navigation={navigation}/>
         <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Notifications}>
             <View>
-                <NotificationList/>
-                <NotificationList/>
-                <NotificationList/>
-                <NotificationList/>
+                { (isLoading || isError || notifications.length === 0) && (
+                    <Text style={{color: '#fff'}}>
+                        { isLoading ? 'Carregando...' : isError ? error : "Nenhuma notificação" }
+                    </Text>
+                    )
+                }
+                {
+                    (!isLoading && !isError && notifications && notifications.length > 0) && notifications.map(notification=><NotificationList navigation={navigation} notification={notification}/>)
+                }
             </View>
         </ScrollView>            
         <Menu navigation={navigation} />

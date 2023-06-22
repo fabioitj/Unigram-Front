@@ -76,7 +76,7 @@ const Profile = ({navigation, route}) => {
     }, [updates]);
 
     const handleConnect = () => {
-        Promise.allSettled([(user.connection && user.connection.isConnected) ? api.disconnect(user._id) : !user.connection.isPending && api.connect(user._id)])
+        Promise.allSettled([user.connection ? user.connection.isPending ? '' : api.disconnect(user._id) : api.connect(user._id)])
         .then(res => {
             update();
         })
@@ -145,9 +145,9 @@ const Profile = ({navigation, route}) => {
                     { !isMyself &&
                         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
                             <View style={{alignItems:'center'}}>
-                                <TouchableOpacity onPress={()=>handleConnect()} style={{backgroundColor:"#fff", borderRadius:15, width:'150px', height:'40px', justifyContent:'center'}}>
+                                <TouchableOpacity onPress={()=>{ user.connection ? user.connection.isPending ? '' : handleConnect() : handleConnect() }} style={{backgroundColor:"#fff", borderRadius:15, width:'150px', height:'40px', justifyContent:'center'}}>
                                     <Text style={{alignSelf:'center', color:"rgba(232,85,76,1)", fontWeight:'600', fontSize:18}}>
-                                        {user.connection && user.connection.isConnected ? "Desconectar" : !user.connection.isPending ? "Conectar" : "Aguardando" }
+                                        { user.connection ? user.connection.isPending ? 'Aguardando' : 'Desconectar' : 'Conectar' }
                                     </Text>
                                 </TouchableOpacity>
                             </View>
