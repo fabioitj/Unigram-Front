@@ -23,7 +23,7 @@ const NotificationList = ({navigation, notification}) => {
     }
 
     const handleAccept = () => {
-        api
+        //api
     }
 
     return (
