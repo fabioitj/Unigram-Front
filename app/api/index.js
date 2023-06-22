@@ -5,7 +5,7 @@ const domain = 'http://localhost:3000';
 const defaultHeader = () => ({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer '+ sessionStorage.getItem('@unigram-session-token')
+    'Authorization': 'Bearer '+ localStorage.getItem('@unigram-session-token')
 });
 
 const api = {
@@ -47,6 +47,8 @@ const api = {
         axios.get(domain + '/publication/user/' + id, {headers: defaultHeader()}),
     getPost: (id) =>
         axios.get(domain + '/publication/' + id, {headers: defaultHeader()}),
+    getPendingConnection: () =>
+        axios.get(domain + '/connection/pending', {headers: defaultHeader()}),
     connect: (id) =>
         axios.post(domain + '/connection/request', {id_user_requested: id}, {headers: defaultHeader()}),
     disconnect: (id) =>

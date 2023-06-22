@@ -17,15 +17,7 @@ const Feed = ({navigation}) => {
         setIsLoading(true);
         api.feed()
             .then(res => {
-                switch (res.status) {
-                    case 401:
-                        signOut();
-                    case 200:
-                        setPosts(res.data);
-                        break;
-                    default:
-                        throw new Error(res.data);
-                }
+                setPosts(res.data.publications);
             })
             .catch(err => {
                 setIsError(true);

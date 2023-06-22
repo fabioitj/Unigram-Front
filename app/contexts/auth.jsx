@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children, navigation}) => {
     const [token, setToken] =  useState(()=>{
-        const oldToken = sessionStorage.getItem('@unigram-session-token');
+        const oldToken = localStorage.getItem('@unigram-session-token');
         return oldToken || undefined;
     });
     const [loggedIn, logIn] = useState(()=>{
@@ -19,7 +19,7 @@ const AuthProvider = ({children, navigation}) => {
                 switch (res.status) {
                     case 200:
                         const { token } = res.data;
-                        sessionStorage.setItem('@unigram-session-token', token);
+                        localStorage.setItem('@unigram-session-token', token);
                         logIn(true);
                         setToken(token)
                         break;
@@ -30,7 +30,7 @@ const AuthProvider = ({children, navigation}) => {
     }
 
      const signOut = async () => {
-         sessionStorage.removeItem('@unigram-session-token');
+         localStorage.removeItem('@unigram-session-token');
          logIn(false);
          setToken(undefined);
      }

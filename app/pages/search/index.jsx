@@ -17,10 +17,14 @@ const Search = ({navigation}) => {
         <Header navigation={navigation} setUsers={setUsers} setIsLoading={setIsLoading} setIsError={setIsError} setError={setError}/>
         <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Searches}>
             <View style={{alignItems:'center', top:'15px'}}>
+                { (isLoading || isError || users.length === 0) && (
+                    <Text style={{color: '#fff'}}>
+                        { isLoading ? 'Carregando...' : isError ? error : "Nenhum usuário com este nome ou similar." }
+                    </Text>
+                    )
+                }
                 {
-                    isLoading ? <Text>Carregando...</Text> :
-                    isError ? <Text>{error}</Text> :
-                    users && users.length > 0 ? users.map(user=><SearchList navigation={navigation} user={user}/>) : <Text style={{color:"#fff", fontWeight:600, marginBottom:'20px', textAlign:'center'}}>Não há mais nenhum usuário com{'\n'} este nome ou similar.</Text>
+                    (!isLoading && !isError && users && users.length > 0) && users.map(user=><SearchList navigation={navigation} user={user}/>)
                 }
             </View>
         </ScrollView>            

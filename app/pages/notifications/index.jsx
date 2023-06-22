@@ -1,9 +1,37 @@
+import { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
+import api from "../../api";
 import Header from '../../components/Header/HeaderNotifications';
 import Menu from "../../components/Menu/Menu";
 import NotificationList from "../../components/NotificationList";
+import { useAuth } from "../../contexts/auth";
 
 const Notifications = ({navigation}) => {
+    const { signOut } = useAuth()
+    const [notifications, setNotifications] = useState([]);
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        setIsError(false);
+        setIsLoading(true);
+        api.getPendingConnection()
+            .then(res => {
+                setNotifications(res.data);
+            })
+            .catch(err => {
+                setIsError(true);
+                if ( err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Ocorreu um erro ao carregar o feed.");
+                }
+            })
+            .finally(()=> {
+                setIsLoading(false);
+            })
+    }, []);
     return(
 
         <View style={styles.Container}>

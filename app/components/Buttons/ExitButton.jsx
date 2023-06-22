@@ -7,7 +7,7 @@ const ExitButton = ({navigation}) => {
     return(
 
         <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.button}>
-        <TouchableOpacity onPress={() => {signOut(); navigation.popToTop()}}>
+        <TouchableOpacity onPress={() => {signOut(); navigation.push("Login")}}>
             <Text style={{color:"#fff", alignSelf:'center', fontWeight:'500', fontSize:'18px'}}>Sair</Text>
         </TouchableOpacity>
         </LinearGradient>

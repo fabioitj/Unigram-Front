@@ -21,7 +21,7 @@ const Profile = ({navigation, route}) => {
         setupdates(updates => [...updates, '']);
     }
 
-    useEffect(async () => {
+    async function getUser() {
         setIsLoading(true);
         let userId;
         userId = route?.params?.user;
@@ -58,35 +58,32 @@ const Profile = ({navigation, route}) => {
                     }
                 })
         ])
-            .catch(err => {
-                setIsError(true);
-                if ( err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError("Ocorreu um erro ao carregar o feed.");
-                }
-            })
-            .finally(()=> {
-                setIsLoading(false);
-            })
-    }, [updates, route]);
+        .catch(err => {
+            setIsError(true);
+            if ( err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Ocorreu um erro ao carregar o feed.");
+            }
+        })
+        .finally(()=> {
+            setIsLoading(false);
+        })
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [updates]);
 
     const handleConnect = () => {
-        user.connection && user.connection.isConnected ? api.disconnect(user._id) : api.connect(user._id)
+        Promise.allSettled([(user.connection && user.connection.isConnected) ? api.disconnect(user._id) : !user.connection.isPending && api.connect(user._id)])
         .then(res => {
-            switch (res.status) {
-                case 401:
-                    signOut();
-                case 200:
-                    update();
-                    break;
-                default:
-                    throw new Error(res.data);
-            }
+            update();
         })
         .catch(err => {
             setIsError(true);
             if ( err instanceof Error) {
+                console.log(err);
                 setError(err.message);
             } else {
                 setError("Ocorreu um erro ao carregar o feed.");
@@ -150,7 +147,7 @@ const Profile = ({navigation, route}) => {
                             <View style={{alignItems:'center'}}>
                                 <TouchableOpacity onPress={()=>handleConnect()} style={{backgroundColor:"#fff", borderRadius:15, width:'150px', height:'40px', justifyContent:'center'}}>
                                     <Text style={{alignSelf:'center', color:"rgba(232,85,76,1)", fontWeight:'600', fontSize:18}}>
-                                        {user.connection ? user.connection.isPending ? "Aguardando" : "Conectado" : "Conectar"}
+                                        {user.connection && user.connection.isConnected ? "Desconectar" : !user.connection.isPending ? "Conectar" : "Aguardando" }
                                     </Text>
                                 </TouchableOpacity>
                             </View>

@@ -15,7 +15,7 @@ function SlideInHome({navigation}) {
         setTimeout(() => {
             setIsLoading(false);
         }, 2000);
-        const token = sessionStorage.getItem("@unigram-session-token");
+        const token = localStorage.getItem("@unigram-session-token");
         console.log(token);
         if (token) {
             navigation.push("Feed");

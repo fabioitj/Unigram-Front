@@ -30,18 +30,25 @@ const ImageCard = ({navigation, post}) => {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [liked, setLiked] = useState(()=>post.already_liked)
+
+    console.log(liked);
 
     const handleLike = () => {
         setIsLoading(true);
-        post.already_liked ? api.unlike(post._id) : api.like(post._id)
+        Promise.allSettled([!liked ? api.like(post._id) : api.unlike(post._id)])
             .then(res => {
-                switch (res.status) {
+                const {status} = res[0].value;
+                console.log("RESSSSSSSSSSSSSS");
+                switch (status) {
                     case 401:
                         signOut();
                     case 200:
-                        post.already_liked = !post.already_liked;
+                        console.log(liked);
+                        setLiked(liked => !liked);
                         break;
                     default:
+                        console.log(res);
                         throw new Error(res.data);
                 }
             })
@@ -76,7 +83,7 @@ const ImageCard = ({navigation, post}) => {
                             <IoChatbubbleOutline style={styles.ImageCardInfoButtom} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>handleLike()} style={styles.ImageCardInfoButtom}>
-                            {!post.already_liked ? <IoHeartOutline style={styles.ImageCardInfoButtom} /> : <IoHeart style={styles.ImageCardInfoButtom} />}
+                            {!liked ? <IoHeartOutline style={styles.ImageCardInfoButtom} /> : <IoHeart style={styles.ImageCardInfoButtom} />}
                         </TouchableOpacity>
                     </View>
                 </View>
