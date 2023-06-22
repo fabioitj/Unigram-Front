@@ -41,6 +41,10 @@ const Messages = ({navigation}) => {
             })
     }, []);
 
+    const handleGoToConversation = () => {
+        
+    }
+
     return (
         <View style={styles.Container}>
             <Header navigation={navigation}/>
@@ -49,17 +53,17 @@ const Messages = ({navigation}) => {
                 {
                     isLoading ? <Text>Carregando...</Text> :
                     isError ? <Text>{error}</Text> :
-                    chats ? chats.map(chat=> <Chats chat={chat}/>) : (<Text>Você não possui conversas no momento.</Text>)
+                    chats ? chats.map(chat=> <Chats navigation={navigation} chat={chat}/>) : (<Text>Você não possui conversas no momento.</Text>)
                 }
                 </View>
                 <View style={{alignItems:'center', top:'75px'}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={handleGoToConversation}>
                         <Text style={{color:"#fff", fontWeight:700}}>Iniciar nova conversa</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>      
             <View style={{position: 'fixed', bottom: '5rem', right: '1rem'}}>
-            <AddButton/>
+            <AddButton callback={handleGoToConversation}/>
             </View>      
             <Menu navigation={navigation} />
         </View>

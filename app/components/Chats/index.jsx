@@ -21,19 +21,26 @@ function getTimeElapsedLabel(date) {
 }
 
 //TODO: ADD CHAT SCREEN
-const Chats = ({chat}) => {
+const Chats = ({chat, navigation}) => {
+
+    console.log({chat});
+
+    const handleGoToConversation = () => {
+        navigation.push("MessageConversation", {userId: chat.userId});
+    }
+
     return (
-        <TouchableOpacity style={styles.chatInfo}>
+        <TouchableOpacity onPress={handleGoToConversation} style={styles.chatInfo}>
             <Image
                 source={"https://images.pexels.com/photos/16130027/pexels-photo-16130027.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                 style={styles.profile}
             />
             <View style={{justifyContent:'center'}}>
             <View style={{flexDirection:'row', justifyContent:'space-around', gap:'95px'}}>
-                <Text style={{color:"#fff", fontWeight:650, height:20}}>@{chat.sender.username}</Text> 
-                <Text style={{color:"#f4f4f4", fontWeight:400, height:20}}>{getTimeElapsedLabel(new Date(chat.date_register))}</Text> 
+                <Text style={{color:"#fff", fontWeight:650, height:20}}>@{chat.message.receiver.username}</Text> 
+                <Text style={{color:"#f4f4f4", fontWeight:400, height:20}}>{getTimeElapsedLabel(new Date(chat.message.date_register))}</Text> 
             </View>  
-            <Text style={{color:"#fff", fontWeight:400, height:20}}>{chat.body}</Text>
+            <Text style={{color:"#fff", fontWeight:400, height:20}}>{chat.message.body}</Text>
             </View>
         </TouchableOpacity>
     )

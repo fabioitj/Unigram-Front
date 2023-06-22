@@ -12,6 +12,7 @@ import NewPost from './app/pages/new-post';
 import { AuthProvider } from './app/contexts/auth';
 import ProtectedPage from './app/pages/ProtectedPage';
 import Post from './app/pages/post/post';
+import MessageConversation from './app/pages/messages/message_conversation';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ function App() {
           {/* <ProtectedPage> */}
           <Stack.Screen name="Feed" component={Feed} />
           <Stack.Screen name="Messages" component={Messages} />
+          <Stack.Screen name="MessageConversation" component={MessageConversation} />
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen name="Profile" component={Profile} />

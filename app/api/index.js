@@ -39,8 +39,8 @@ const api = {
         axios.get(domain + '/user/' + id, {headers: defaultHeader()}),
     getMessages: () =>
         axios.get(domain + '/messages', {headers: defaultHeader()}),
-    getChatMessages: () =>
-            axios.get(domain + '/messages', {headers: defaultHeader()}),
+    getChatMessages: (id) =>
+        axios.get(domain + '/message/' + id, {headers: defaultHeader()}),
     sendMessage: (message) =>
         axios.post(domain + '/message', { body: message }, {headers: defaultHeader()}),
     getUserPosts: (id) =>
