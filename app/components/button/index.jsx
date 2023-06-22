@@ -4,7 +4,7 @@ import { Text, TouchableOpacity } from "react-native";
 function Button({onPress, highlight = false, children, style}) {
     return (
         <TouchableOpacity style={[!highlight ? styles.button : styles.buttonHighlighted, style]} onPress={onPress}>
-            <Text style={[!highlight ? styles.white_text : styles.colorful_text, style]}>{children}</Text>
+            <Text style={[!highlight ? styles.white_text : styles.colorful_text]}>{children}</Text>
         </TouchableOpacity>
     );
 }

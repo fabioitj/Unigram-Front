@@ -2,11 +2,11 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 
 const isNull = (el) => el === null || el === undefined || el === "";
 
-function Field({label, type, value, setValue}) {
+function Field({label, type, value, setValue, style}) {
     const valueNull = isNull(value);
 
     return (
-        <View style={styles.field}>
+        <View style={[styles.field, style]}>
             {
                 label && valueNull && (
                     <Text htmlFor={label + "__label"} style={styles.label}>{label}</Text>
