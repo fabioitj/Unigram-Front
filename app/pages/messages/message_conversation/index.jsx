@@ -52,7 +52,7 @@ function MessageConversation({ navigation, route }) {
                 .then((response) => {
                     setMessages(response.data);
                 })
-        }, 5000);
+        }, 1000);
     }, []);
 
     const handleSendMessage = () => {

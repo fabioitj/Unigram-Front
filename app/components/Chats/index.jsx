@@ -29,6 +29,8 @@ const Chats = ({chat, navigation}) => {
         navigation.push("MessageConversation", {userId: chat.userId});
     }
 
+    const isMine = chat.message.receiver._id === chat.userId;
+
     return (
         <TouchableOpacity onPress={handleGoToConversation} style={styles.chatInfo}>
             <Image
@@ -37,7 +39,7 @@ const Chats = ({chat, navigation}) => {
             />
             <View style={{justifyContent:'center'}}>
             <View style={{flexDirection:'row', justifyContent:'space-around', gap:'95px'}}>
-                <Text style={{color:"#fff", fontWeight:650, height:20}}>@{chat.message.receiver.username}</Text> 
+                <Text style={{color:"#fff", fontWeight:650, height:20}}>@{(!isMine ? chat.message.sender.username : chat.message.receiver.username)}</Text> 
                 <Text style={{color:"#f4f4f4", fontWeight:400, height:20}}>{getTimeElapsedLabel(new Date(chat.message.date_register))}</Text> 
             </View>  
             <Text style={{color:"#fff", fontWeight:400, height:20}}>{chat.message.body}</Text>
