@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useEffect } from "react";
 import api from "../../../api";
 import Header from "../../../components/Header/HeaderMessages";
 import Field from "../../../components/Field";
 import Button from "../../../components/button";
+import { LinearGradient } from "expo-linear-gradient";
 
 function MessageConversationLine({ receiver, message }) {
 
     const isMine = receiver === message.receiver;
 
     return (
-        <View style={(isMine ? styleLine.mine : styleLine.friend)}>
-            <Text>{message.body}</Text>
-        </View>
+        isMine ? (
+            <LinearGradient colors={["#E8554C", "#C74569"]} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styleLine.mine}>
+                <Text style={{ color: 'white' }}>{message.body}</Text>
+            </LinearGradient>
+        ) : (
+            <View style={styleLine.friend}>
+                <Text>{message.body}</Text>
+            </View>
+        )
     );
 }
 
@@ -38,6 +45,7 @@ const styleLine = StyleSheet.create({
 
 function MessageConversation({ navigation, route }) {
 
+    const scrollViewRef = useRef();
     const userId = route?.params?.userId;
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
@@ -74,7 +82,7 @@ function MessageConversation({ navigation, route }) {
     return (
         <View style={styles.Container}>
             <Header navigation={navigation} />
-            <ScrollView contentContainerStyle={{ rowGap: '24px', marginTop: '2rem' }} style={styles.Messages}>
+            <ScrollView contentContainerStyle={{ rowGap: '24px', marginTop: '2rem' }} style={styles.Messages} ref={scrollViewRef} onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}>
                 {
                     messages && messages.map((message, index) => {
                         return (
@@ -82,14 +90,13 @@ function MessageConversation({ navigation, route }) {
                         )
                     })
                 }
-                <View style={{ display: 'flex', alignItems: 'center' }}>
-                    <Field label={"Digite a mensagem..."} type={"text"} value={newMessage} setValue={setNewMessage} />
-                    <Button style={{ width: '100%' }} key={0} onPress={handleSendMessage} highlight>
-                        Enviar
-                    </Button>
-                </View>
             </ScrollView>
-
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', backgroundColor: '#61364A', padding: '1rem' }}>
+                <Field label={"Digite a mensagem..."} type={"text"} value={newMessage} setValue={setNewMessage} style={{ width: '70%' }} />
+                <Button style={{ width: '20%' }} key={0} onPress={handleSendMessage} highlight>
+                    Enviar
+                </Button>
+            </View>
 
         </View>
     );
@@ -102,7 +109,6 @@ const styles = StyleSheet.create({
     },
     Messages: {
         marginTop: '3rem',
-        minHeight: '100%',
         width: '100%',
         backgroundColor: '#61364A',
         display: 'flex',
