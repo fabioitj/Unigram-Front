@@ -58,7 +58,7 @@ const api = {
     acceptConnection: (id) =>
         axios.put(domain + '/connection/accept', {id_connection: id}, {headers: defaultHeader()}),
     rejectConnection: (id) =>
-        axios.put(domain + '/connection/reject', {id_connection: id}, {headers: defaultHeader()}),
+        axios.put(domain + '/connection/deny', {id_connection: id}, {headers: defaultHeader()}),
     createPost: (image, description) =>
         axios.post(domain + '/publication', {image: image, description: description}, {headers: defaultHeader()}),
     editPost: (id, description) =>

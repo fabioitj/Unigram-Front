@@ -1,6 +1,12 @@
 import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native"
+import Button from "../button";
+import { IoCheckmark, IoRemove } from "react-icons/io5";
+import api from "../../api";
 
-const NotificationList = ({navigation, notification}) => {
+const NotificationList = ({navigation, notification, refreshNotificationList}) => {
+
+    const id_connection = notification._id;
+    console.log(`ObjectId('${id_connection}')`);
 
     function getTimeElapsedLabel(date) {
         const now = new Date();
@@ -23,7 +29,17 @@ const NotificationList = ({navigation, notification}) => {
     }
 
     const handleAccept = () => {
-        //api
+        api.acceptConnection(id_connection) 
+        .then((response) => {
+            refreshNotificationList();
+        })
+    }
+
+    const handleDeny = () => {
+        api.rejectConnection(id_connection)
+        .then((response) => {
+            refreshNotificationList();
+        })
     }
 
     return (
@@ -37,13 +53,16 @@ const NotificationList = ({navigation, notification}) => {
                 <Text style={{color:"#fff", fontWeight:650, height:20}}>@{notification.id_user_requester.username}</Text> 
                 <Text style={{color:"#fff", fontWeight:400, height:20}}>pediu para se conectar</Text>
             </View>  
-            <View style={{justifyContent:"flex-end", display: "flex", flexDirection: 'row', gap: '16px'}}>
-                <TouchableOpacity style={{horizontalPadding: '16px', verticalPadding: '8px'}}>
-                    Aceitar
-                </TouchableOpacity>
-                <TouchableOpacity style={{horizontalPadding: '16px', verticalPadding: '8px'}}>
+            <View style={{display: "flex", flexDirection: 'row', alignItems: 'center'}}>
+                <Button highlight style={{width: '48px'}} onPress={handleAccept}>
+                    <IoCheckmark/>
+                </Button>
+                <Button style={{width: '48px'}} onPress={handleDeny}>
+                    <IoRemove/>
+                </Button>
+                {/* <TouchableOpacity style={{horizontalPadding: '16px', verticalPadding: '8px'}}>
                     Reijeitar
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </TouchableOpacity>
         </View>

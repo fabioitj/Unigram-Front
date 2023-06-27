@@ -16,6 +16,11 @@ const Notifications = ({navigation}) => {
     useEffect(() => {
         setIsError(false);
         setIsLoading(true);
+        getNotifications();
+    }, []);
+
+
+    function getNotifications() {
         api.getPendingConnection()
             .then(res => {
                 setNotifications(res.data);
@@ -30,8 +35,9 @@ const Notifications = ({navigation}) => {
             })
             .finally(()=> {
                 setIsLoading(false);
-            })
-    }, []);
+            });
+    }
+
     return(
 
         <View style={styles.Container}>
@@ -45,7 +51,7 @@ const Notifications = ({navigation}) => {
                     )
                 }
                 {
-                    (!isLoading && !isError && notifications && notifications.length > 0) && notifications.map(notification=><NotificationList navigation={navigation} notification={notification}/>)
+                    (!isLoading && !isError && notifications && notifications.length > 0) && notifications.map((notification, index)=><NotificationList key={index} navigation={navigation} notification={notification} refreshNotificationList={getNotifications}/>)
                 }
             </View>
         </ScrollView>            
