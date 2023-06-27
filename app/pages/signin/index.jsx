@@ -1,14 +1,23 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import { useContext, useState } from "react";
+>>>>>>> 26530cd9c9fa16844e613537910b419cdcf4ce1d
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Image, Text } from "react-native";
 import { View } from "react-native-web";
 import Button from "../../components/button";
 import Field from "../../components/Field";
+<<<<<<< HEAD
 import { useAuth } from "../../contexts/auth";
+=======
+import { AuthContext } from "../../contexts/auth";
+>>>>>>> 26530cd9c9fa16844e613537910b419cdcf4ce1d
 
 function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
     const { signIn } = useAuth()
     const [email, setEmail] = useState("");
+<<<<<<< HEAD
     const [senha, setSenha] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -35,6 +44,14 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
                 console.log("finally");
                 setIsLoading(false);
             })
+=======
+    const [password, setPassword] = useState("");
+
+    const { signIn } = useContext(AuthContext);
+
+    const handleOnSignIn = () => {
+        signIn(email, password, navigation); 
+>>>>>>> 26530cd9c9fa16844e613537910b419cdcf4ce1d
     };
 
     return (
@@ -65,7 +82,7 @@ function SignIn({ backToWelcome, goToForgotPassword, goToSignUp, navigation }) {
                         </Text>
                     }
                     <Field label="E-mail" type="text" value={email} setValue={setEmail} />
-                    <Field label="Senha" type="password" value={senha} setValue={setSenha} />
+                    <Field label="Senha" type="password" value={password} setValue={setPassword} />
                 </View>
 
                 <View style={{ flex: 1, width: '100%', gap: 16 }}>

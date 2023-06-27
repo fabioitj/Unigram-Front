@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, TouchableOpacity, Image, Text, View, ScrollView } from "react-native";
 import Button from "../../components/button";
 import Field from "../../components/Field";
+<<<<<<< HEAD
 import api from "../../api";
+=======
+import { AuthContext } from "../../contexts/auth";
+>>>>>>> 26530cd9c9fa16844e613537910b419cdcf4ce1d
 
 function SignUp({ backToWelcome, goToSignIn }) {
     const [name, setName] = useState("");
@@ -15,6 +19,7 @@ function SignUp({ backToWelcome, goToSignIn }) {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
+<<<<<<< HEAD
     const handleOnSignUp = () => {
         setIsLoading(true);
         api.register(name, username, password, confirmPassword, email, birthDate)
@@ -39,6 +44,22 @@ function SignUp({ backToWelcome, goToSignIn }) {
                 setIsLoading(false);
             })
     };
+=======
+    const { signUp } = useContext(AuthContext);
+
+    const handleOnSignIn = () => {
+        const newUser = {
+            name,
+            username,
+            email,
+            birth_date: birthDate,
+            password,
+            confirm_password: confirmPassword
+        };
+
+        signUp(newUser, backToWelcome);
+    };  
+>>>>>>> 26530cd9c9fa16844e613537910b419cdcf4ce1d
 
     return (
         <ScrollView style={{ flex: 1, width: '100%', padding: 24, flexDirection: 'column' }}>
@@ -77,8 +98,13 @@ function SignUp({ backToWelcome, goToSignIn }) {
                 </View>
             </View>
             <View style={{ flex: 1, gap: 16, width: '100%', paddingHorizontal: 32, marginTop: 16, alignSelf: 'center' }}>
+<<<<<<< HEAD
                 <Button onPress={handleOnSignUp} highlight> 
                     { isLoading ? 'Registrando...' : 'Registrar' }
+=======
+                <Button onPress={handleOnSignIn} highlight> 
+                    Registrar
+>>>>>>> 26530cd9c9fa16844e613537910b419cdcf4ce1d
                 </Button>
             </View>
 

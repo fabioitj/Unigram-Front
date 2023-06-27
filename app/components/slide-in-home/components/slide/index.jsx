@@ -94,6 +94,14 @@ function HomeSlideIn({ navigation }) {
 
                     )
                 }
+                {
+                    pageRendering === 3 && (
+                        <Animatable.View duration={1000} animation="slideInUp" style={[styles.slideInUp, styles.pageNumber3, {paddingHorizontal: 32}]}>
+                            <ForgotPassword backToWelcome={backToWelcome}/>
+                        </Animatable.View>
+                        
+                    )
+                }
             </View>
         </>
     );
@@ -135,6 +143,9 @@ const styles = StyleSheet.create({
     pageNumber3: {
         height: '75%',
         width: '100%'
+    },
+    pageNumber3: {
+        height: '75%'
     },
     slideInUpGirl: {
         height: '100%', // Set the height of the box to half of the screen

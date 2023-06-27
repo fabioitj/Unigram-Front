@@ -3,17 +3,21 @@ import {
     View,
     Text,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Loading from "../Loading";
 import HomeSlideIn from "./components/slide";
+import { AuthContext } from "../../contexts/auth";
 
 
 function SlideInHome({navigation}) {
     const [isLoading, setIsLoading] = useState(true);
 
+    const { validateAlreadySignedIn } = useContext(AuthContext);
+
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
+            validateAlreadySignedIn(navigation);
         }, 2000);
         const token = localStorage.getItem("@unigram-session-token");
         console.log(token);

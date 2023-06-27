@@ -2,6 +2,7 @@ import { StyleSheet, View, ScrollView, Text, Image, TouchableOpacity } from "rea
 import Header from "../../components/Header/HeaderMyProfile";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import Menu from "../../components/Menu/Menu";
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import api from "../../api";
@@ -172,6 +173,55 @@ const Profile = ({navigation, route}) => {
                 <Menu navigation={navigation} />
             </>
             )}
+=======
+import { useContext, useEffect, useState } from "react";import { getPublicationsByUser } from "../../api/userApi";
+import { AuthContext } from "../../contexts/auth";
+
+const Profile = ({navigation}) => {  
+    const [publications, setPublications] = useState([]);
+
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        getPublicationsByUser(user._id)
+            .then((response) => {
+                setPublications(response.data);
+            })
+            .catch((response) => {
+                alert(response.response.data.message);
+            })
+    }, []);
+
+    return (
+        <View style={styles.Container} >
+            <Header navigation={navigation}/>
+            <Image
+                source={"https://images.pexels.com/photos/15031717/pexels-photo-15031717.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 "}
+                style={{
+                    width: '7rem',
+                    height: '7rem',
+                    position: 'absolute',
+                    top: '5rem',
+                    left: '50%',
+                    zIndex: 1,
+                    borderRadius: 100,
+                    transform: 'translateX(-50%)',
+                    borderColor: 'hsl(332, 28%, 30%)',
+                    borderWidth: '5px'
+                }}
+            />
+            <ScrollView contentContainerStyle={{ rowGap: '24px', marginBottom: '4rem'}} style={styles.Feed}>
+                <TouchableOpacity>
+                <Text style={{fontWeight:400, color: "#fff", textAlign:'center', fontSize:14}}>48 conexões</Text>
+                </TouchableOpacity>
+                <Text style={{fontWeight:600, color: "#fff", textAlign:'center', fontSize:14, lineHeight:15}}>Aqui vai a sua biografia.{'\n'}Escreva algumas informações{'\n'}sobre você!</Text>
+                {
+                    publications.map((p, i) => <ImageCardProfile description={p.description} imageUrl={p.image} publish_date={p.publication_date} key={i} />)
+                }
+                
+            </ScrollView>
+            <Menu navigation={navigation} />
+>>>>>>> 26530cd9c9fa16844e613537910b419cdcf4ce1d
         </View>
     )
 }

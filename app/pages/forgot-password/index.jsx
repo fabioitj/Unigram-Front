@@ -7,10 +7,9 @@ import Field from "../../components/Field";
 
 function ForgotPassword({ backToWelcome }) {
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
 
-    const handleOnSignIn = () => {
-        
+    const handleOnForgotPassword = () => {
+
     };
 
     return (
@@ -36,7 +35,7 @@ function ForgotPassword({ backToWelcome }) {
                 </View>
             </View>
             <View style={{ gap: 16, width: "77.5%", alignSelf: 'center', flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-                <Button onPress={handleOnSignIn} highlight>
+                <Button onPress={handleOnForgotPassword} highlight>
                     Redefinir senha
                 </Button>
             </View>
